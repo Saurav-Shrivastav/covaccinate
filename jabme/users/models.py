@@ -27,7 +27,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         validators=[
             RegexValidator(
                 regex=MOBILE_REGEX,
-                message="Enter a valid mobile number",
+                message=_("Enter a valid mobile number"),
                 code="invalid_mobile",
             )
         ],
@@ -40,7 +40,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         validators=[
             RegexValidator(
                 regex=PINCODE_REGEX,
-                message="Enter a valid pincode",
+                message=_("Enter a valid pincode"),
                 code="inavlid_pincode",
             )
         ],

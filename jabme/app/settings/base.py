@@ -46,7 +46,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "jabme.app.wsgi.application"
-AUTH_USER_MODEL = "jabme.users.User"
+AUTH_USER_MODEL = "users.User"
 
 
 # Database
