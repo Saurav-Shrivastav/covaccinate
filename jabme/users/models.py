@@ -34,7 +34,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
     )
-    count = models.AutoField()
     pincode = models.CharField(
         max_length=6,
         validators=[
@@ -61,4 +60,4 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     def __str__(self):
-        return f"{self.count}. {self.name}"
+        return f"{self.name}"
