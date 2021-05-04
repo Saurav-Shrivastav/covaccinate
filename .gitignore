@@ -21,3 +21,20 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+env
+**/*.pyc
+**/__pycache__
+media
+.DS_Store
+*.sqlite3
+.env
+.env.dev
+.vscode/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
