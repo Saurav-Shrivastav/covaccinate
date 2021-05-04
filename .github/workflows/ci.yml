@@ -52,7 +52,7 @@ jobs:
         run: |
           pipenv run python manage.py test
         env:
-          DJANGO_SETTINGS_MODULE: app.settings.prod
+          DJANGO_SETTINGS_MODULE: jabme.app.settings.prod
 
       - name: QA Tests
         run: |
