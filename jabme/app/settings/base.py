@@ -13,6 +13,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "jabme.users",
 ]
 
 MIDDLEWARE = [
@@ -45,6 +46,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "jabme.app.wsgi.application"
+AUTH_USER_MODEL = "users.User"
 
 
 # Database
