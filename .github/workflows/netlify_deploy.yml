@@ -11,9 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: jsmrcaga/action-netlify-deploy@v1.6.0
+      - name: Use Node.js 14.16.0
+        uses: actions/setup-node@v1
         with:
-          build_directory: "./client/build"
+          node-version: "14.16.0"
+      - run: npm install
+      - run: npm run build --if-present
+        working-directory: "./client"
+
+      - name: Deploy Netlify
+        uses: netlify/actions/cli@master
+        env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.API_ID}}
-          NETLIFY_DEPLOY_TO_PROD: true
+        with:
+          args: deploy --dir=./client/build --prod
+          secrets: "['NETLIFY_AUTH_TOKEN', 'NETLIFY_SITE_ID']"
