@@ -1,0 +1,29 @@
+name: Node Continuous Integration
+
+# This action works with pull requests and pushes
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: setup node version
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.16.0"
+
+      - name: npm install
+        run: npm install
+        working-directory: ./client
+
+      - name: build test
+        run: npm run build
+        working-directory: ./client
