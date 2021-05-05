@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Button, Input } from "antd";
+import { Button } from "antd";
+import { Input, Select, FormItem } from "formik-antd";
 import { md, xs } from "theme/breakpoints";
 
 export const Card = styled.div`
@@ -41,6 +42,11 @@ export const Card = styled.div`
     font-size: 2.2rem;
     margin: 0 1rem;
     font-weight: 900;
+
+    ${xs} {
+      font-size: 1.8rem;
+      line-height: 2rem;
+    }
   }
 
   ${md} {
@@ -57,6 +63,10 @@ export const VaccineIcon = styled.img`
   height: 3.5rem;
   object-fit: contain;
   align-self: flex-start;
+
+  ${xs} {
+    height: 2.8rem;
+  }
 `;
 
 export const StyledInput = styled(Input)`
@@ -76,6 +86,37 @@ export const StyledInput = styled(Input)`
 
     &:last-of-type {
       margin-bottom: 1.5rem;
+    }
+  }
+`;
+
+export const StyledSelect = styled(Select)`
+  & .ant-select-selector {
+    height: 65px !important;
+    border-radius: 50px !important;
+    padding: 0 2rem !important;
+  }
+
+  & .ant-select-arrow {
+    padding-right: 2rem;
+  }
+
+  & .ant-select-selection-item {
+    line-height: 65px !important;
+  }
+  font-size: 1.2rem;
+  margin: 0 0.5rem 2rem 0;
+  width: 100%;
+
+  ${xs} {
+    & .ant-select-selector {
+      height: 55px !important;
+      border-radius: 50px !important;
+      padding: 0 2rem !important;
+    }
+
+    & .ant-select-selection-item {
+      line-height: 55px !important;
     }
   }
 `;
@@ -107,4 +148,14 @@ export const StyledButton = styled(Button)`
   ${xs} {
     height: 55px;
   }
+`;
+
+export const StyledFormItem = styled(FormItem)`
+  & .ant-form-item-control-input-content {
+    height: 65px;
+  }
+  & .ant-form-item-explain {
+    margin-bottom: -1rem;
+  }
+  margin-bottom: 2rem;
 `;
