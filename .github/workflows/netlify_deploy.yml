@@ -11,15 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: setup node version
-        uses: actions/setup-node@v2
-        with:
-          node-version: "14.16.0"
-      - name: npm build
-        run: npm run build
-        working-directory: ./client
-
       - uses: jsmrcaga/action-netlify-deploy@v1.1.0
         with:
+          build_directory: ./client/build
+          build_command: npm run build
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.API_ID}}
           NETLIFY_DEPLOY_TO_PROD: true
