@@ -9,7 +9,6 @@ from django.utils.translation import gettext_lazy as _
 
 from jabme.users.managers import UserManager
 
-MOBILE_REGEX = "^(\+\d{1,3}[- ]?)?\d{10}$"  # noqa
 PINCODE_REGEX = "^[1-9][0-9]{5}$"
 
 
@@ -21,18 +20,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(
         max_length=255, unique=True, verbose_name="email address"
-    )
-    mobile = models.CharField(
-        max_length=16,
-        validators=[
-            RegexValidator(
-                regex=MOBILE_REGEX,
-                message=_("Enter a valid mobile number"),
-                code="invalid_mobile",
-            )
-        ],
-        blank=True,
-        null=True,
     )
     pincode = models.CharField(
         max_length=6,

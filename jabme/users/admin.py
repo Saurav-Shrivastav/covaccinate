@@ -27,7 +27,7 @@ class CustomUserAdmin(UserAdmin):
                 )
             },
         ),
-        ("Personal Info", {"fields": ("name", "mobile", "dateJoined")}),
+        ("Personal Info", {"fields": ("name", "dateJoined")}),
         ("Details", {"fields": ("pincode", "district")}),
         ("Permissions", {"fields": ("is_superuser", "is_staff", "is_active")}),
     )
