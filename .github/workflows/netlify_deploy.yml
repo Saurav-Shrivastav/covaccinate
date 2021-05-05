@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: jsmrcaga/action-netlify-deploy@v1.1.0
+      - uses: jsmrcaga/action-netlify-deploy@v1.6.0
         with:
           build_directory: "./client/build"
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
