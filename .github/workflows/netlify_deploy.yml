@@ -13,8 +13,7 @@ jobs:
     steps:
       - uses: jsmrcaga/action-netlify-deploy@v1.1.0
         with:
-          build_directory: ./client/build
-          build_command: npm run build
+          build_directory: "./client/build"
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.API_ID}}
           NETLIFY_DEPLOY_TO_PROD: true
