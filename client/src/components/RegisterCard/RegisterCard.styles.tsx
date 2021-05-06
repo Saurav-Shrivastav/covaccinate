@@ -1,13 +1,28 @@
 import styled from "styled-components";
 import { Button } from "antd";
 import { Input, Select, FormItem } from "formik-antd";
-import { md, xs } from "theme/breakpoints";
+import { lg, md, xs } from "theme/breakpoints";
+
+export const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 1rem;
+
+  .news {
+    margin-right: 1rem;
+  }
+
+  ${lg} {
+    justify-content: space-between;
+  }
+`;
 
 export const Card = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 6rem 10rem;
+  padding: 2rem 10rem 6rem 10rem;
 
   .heading {
     font-size: 900;
