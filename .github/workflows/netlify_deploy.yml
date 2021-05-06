@@ -17,12 +17,12 @@ jobs:
           node-version: "14.16.0"
 
       - name: npm install
-        run: npm install
         working-directory: ./client
+        run: npm install
 
       - name: npm run build
-        run: npm run build --if-present
         working-directory: ./client
+        run: npm run build --if-present
 
       - name: Deploy Netlify
         uses: netlify/actions/cli@master
