@@ -21,7 +21,7 @@ jobs:
 
       - name: npm install
         working-directory: ./client
-        run: npm install --no-optional
+        run: npm install -f
 
       - name: npm run build
         working-directory: ./client
