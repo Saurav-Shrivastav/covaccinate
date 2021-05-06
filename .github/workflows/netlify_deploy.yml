@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     name: "Deploy to Netlify"
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -21,7 +21,7 @@ jobs:
 
       - name: npm install
         working-directory: ./client
-        run: npm install
+        run: npm install --no-optional
 
       - name: npm run build
         working-directory: ./client
