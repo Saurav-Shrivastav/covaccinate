@@ -2,8 +2,9 @@ import React from "react";
 import { EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
 import { Formik, FormikProps } from "formik";
-import { message } from "antd";
+import { Button, message } from "antd";
 import { Form } from "formik-antd";
+import { useHistory } from "react-router-dom";
 import { RegistrationSchema } from "utils/RegisterSchema";
 
 import {
@@ -14,6 +15,7 @@ import {
   StyledButton,
   StyledSelect,
   StyledFormItem,
+  Header,
 } from "./RegisterCard.styles";
 import syringe from "../../assets/syringe.png";
 
@@ -39,6 +41,8 @@ const initialValues: FormValues = {
 };
 
 const RegisterCard: React.FC = () => {
+  const { push } = useHistory();
+
   const onSubmit = (formik: OtherProps & FormikProps<FormValues>): void => {
     const { handleSubmit, isValid } = formik;
     if (!isValid) {
@@ -49,91 +53,106 @@ const RegisterCard: React.FC = () => {
   };
 
   return (
-    <Card>
-      <div className="logo-row">
-        <VaccineIcon src={syringe} alt="syringe" />
-        <h2 className="logo-text">Jab.Me</h2>
-      </div>
-      <h3 className="heading">Register</h3>
-      <p className="description">
-        Get notified about vaccine's availabilty in your area and much more
-      </p>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={RegistrationSchema}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
-      >
-        {(props) => {
-          const { name, password, email, category, zipcode } = props.values;
+    <>
+      <Header>
+        <Button type="primary" ghost className="news">
+          Vaccine News
+        </Button>
+        <Button
+          type="primary"
+          onClick={() => {
+            push("/availability");
+          }}
+        >
+          Check Vaccine Availablity
+        </Button>
+      </Header>
+      <Card>
+        <div className="logo-row">
+          <VaccineIcon src={syringe} alt="syringe" />
+          <h2 className="logo-text">Jab.Me</h2>
+        </div>
+        <h3 className="heading">Register</h3>
+        <p className="description">
+          Get notified about vaccine's availabilty in your area
+        </p>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={RegistrationSchema}
+          onSubmit={(values) => {
+            console.log(values);
+          }}
+        >
+          {(props) => {
+            const { name, password, email, category, zipcode } = props.values;
 
-          return (
-            <>
-              <Form>
-                <StyledFormItem name="name">
-                  <StyledInput
-                    name="name"
-                    placeholder="Name"
-                    value={name}
-                    onChange={props.handleChange}
-                  />
-                </StyledFormItem>
-                <StyledFormItem name="email">
-                  <StyledInput
-                    name="email"
-                    placeholder="Email Address"
-                    value={email}
-                    onChange={props.handleChange}
-                  />
-                </StyledFormItem>
-                <StyledFormItem name="password">
-                  <StyledInputPassword
-                    name="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={props.handleChange}
-                    iconRender={(visible) =>
-                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                    }
-                  />
-                </StyledFormItem>
-                <StyledFormItem name="category">
-                  <StyledSelect
-                    name="category"
-                    value={category}
-                    onChange={props.handleChange}
-                    size="large"
-                  >
-                    <Option value="" disabled>
-                      Select an age category
-                    </Option>
-                    <Option value="18-45">18-45</Option>
-                    <Option value="45+">45+</Option>
-                  </StyledSelect>
-                </StyledFormItem>
-                <StyledFormItem name="zipcode">
-                  <StyledInput
-                    name="zipcode"
-                    value={zipcode}
-                    onChange={props.handleChange}
-                    placeholder="Zipcode"
-                  />
-                </StyledFormItem>
-              </Form>
-              <StyledButton
-                type="primary"
-                onClick={() => {
-                  onSubmit(props);
-                }}
-              >
-                Register
-              </StyledButton>
-            </>
-          );
-        }}
-      </Formik>
-    </Card>
+            return (
+              <>
+                <Form>
+                  <StyledFormItem name="name">
+                    <StyledInput
+                      name="name"
+                      placeholder="Name"
+                      value={name}
+                      onChange={props.handleChange}
+                    />
+                  </StyledFormItem>
+                  <StyledFormItem name="email">
+                    <StyledInput
+                      name="email"
+                      placeholder="Email Address"
+                      value={email}
+                      onChange={props.handleChange}
+                    />
+                  </StyledFormItem>
+                  <StyledFormItem name="password">
+                    <StyledInputPassword
+                      name="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={props.handleChange}
+                      iconRender={(visible) =>
+                        visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                      }
+                    />
+                  </StyledFormItem>
+                  <StyledFormItem name="category">
+                    <StyledSelect
+                      name="category"
+                      value={category}
+                      onChange={props.handleChange}
+                      size="large"
+                    >
+                      <Option value="" disabled>
+                        Select an age category
+                      </Option>
+                      <Option value="18-45">18-45</Option>
+                      <Option value="45+">45+</Option>
+                    </StyledSelect>
+                  </StyledFormItem>
+                  <StyledFormItem name="zipcode">
+                    <StyledInput
+                      name="zipcode"
+                      value={zipcode}
+                      onChange={props.handleChange}
+                      placeholder="Zipcode"
+                    />
+                  </StyledFormItem>
+                </Form>
+                <StyledButton
+                  type="primary"
+                  onClick={() => {
+                    onSubmit(props);
+                  }}
+                >
+                  Register
+                </StyledButton>
+              </>
+            );
+          }}
+        </Formik>
+      </Card>
+    </>
   );
 };
 
