@@ -24,6 +24,11 @@ export interface ITableParams {
   date: string;
 }
 
+export interface ITableParamsZipcode {
+  zipcode: string;
+  date: string;
+}
+
 export interface ITableObject {
   center_id: number;
   name: string;
@@ -85,6 +90,19 @@ export const fetchVaccineData = async (
   try {
     const res: AxiosResponse<ITableData> = await Axios.get(
       `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${options.districtId}&date=${options.date}`
+    );
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchVaccineDataByZipCode = async (
+  options: ITableParamsZipcode
+): Promise<ITableData> => {
+  try {
+    const res: AxiosResponse<ITableData> = await Axios.get(
+      `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${options.zipcode}&date=${options.date}`
     );
     return res.data;
   } catch (error) {
