@@ -10,9 +10,17 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = User
-    list_display = ("__str__", "email", "pincode", "is_staff", "is_active")
+    list_display = (
+        "__str__",
+        "email",
+        "pincode",
+        "district",
+        "is_staff",
+        "is_active",
+    )
     list_filter = (
         "pincode",
+        "district",
         "email",
         "is_staff",
         "is_active",
@@ -28,7 +36,10 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
         ("Personal Info", {"fields": ("name", "dateJoined")}),
-        ("Details", {"fields": ("pincode", "district")}),
+        (
+            "Details",
+            {"fields": ("pincode", "district", "district_id", "age_category")},
+        ),
         ("Permissions", {"fields": ("is_superuser", "is_staff", "is_active")}),
     )
     add_fieldsets = (

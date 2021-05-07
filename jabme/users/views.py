@@ -4,7 +4,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
-from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -39,6 +38,8 @@ class RegisterView(APIView):
                 user.name = data["name"]
                 user.pincode = data["pincode"]
                 user.district = data["district"]
+                user.district_id = data["district_id"]
+                user.age_category = data["category"]
                 user.save()
             except Exception:
                 return Response("Exception occured, enter correct data")

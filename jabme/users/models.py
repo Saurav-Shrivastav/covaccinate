@@ -17,6 +17,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     Custom User model.
     """
 
+    AGE_CHOICES = (("18-44", "18-44"), ("45+", "45+"))
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(
         max_length=255, unique=True, verbose_name="email address"
@@ -31,7 +33,9 @@ class User(AbstractBaseUser, PermissionsMixin):
             )
         ],
     )
-    district = models.CharField(max_length=150, blank=True, null=True)
+    district = models.CharField(max_length=150)
+    district_id = models.CharField(max_length=5)
+    age_category = models.CharField(max_length=5, choices=AGE_CHOICES)
     name = models.CharField("Name", max_length=20)
     dateJoined = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)
@@ -42,6 +46,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         "name",
         "pincode",
         "district",
+        "district_id",
+        "age_category",
     ]
 
     objects = UserManager()
