@@ -209,7 +209,14 @@ const VaccineAvailability: React.FC = () => {
       <Row>
         <Col span={24}>
           <AvailibilityWrapper>
-            <h1 className="heading">Availabilty</h1>
+            <div className="heading-wrapper">
+              <h1 className="heading">Availabilty</h1>
+              <div className="cowin">
+                <Button type="primary" size="large">
+                  Open CoWin
+                </Button>
+              </div>
+            </div>
             <SearchContainer>
               <div className="search-section">
                 <Select
@@ -223,11 +230,6 @@ const VaccineAvailability: React.FC = () => {
                   <Option value="zipcode">Search by zipcode</Option>
                 </Select>
                 {renderSearchFields()}
-              </div>
-              <div className="cowin">
-                <Button type="primary" size="large">
-                  Open CoWin
-                </Button>
               </div>
             </SearchContainer>
             {filterOption === "district" && tableLoading ? (
