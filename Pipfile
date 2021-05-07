@@ -11,6 +11,9 @@ django-environ = "*"
 whitenoise = "*"
 pre-commit = "*"
 djangorestframework = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
+dj-database-url = "*"
 
 [requires]
 python_version = "3.8"
