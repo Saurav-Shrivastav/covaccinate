@@ -13,8 +13,10 @@ import {
   fetchDistricts,
   fetchStates,
   fetchVaccineData,
+  fetchVaccineDataByZipCode,
   IStatesData,
   ITableParams,
+  ITableParamsZipcode,
 } from "services/api";
 import Loading from "pages/Loading/Loading";
 import Table from "components/Table/Table";
@@ -27,6 +29,8 @@ const VaccineAvailability: React.FC = () => {
   const [filterOption, setFilterOption] = useState<IFilterOption>("district");
   const [stateOption, setStateOption] = useState<string>("");
   const [districtOption, setDistrictOption] = useState<string>("");
+  const [zipcodeOption, setZipCodeOption] = useState<string>("");
+
   const [date, setDate] = useState<string>("");
   const { data: states, isLoading: statesLoading } = useQuery<IStatesData>(
     "state-data",
@@ -46,10 +50,25 @@ const VaccineAvailability: React.FC = () => {
     data: tableData,
     isLoading: tableLoading,
     mutate: tableMutation,
+    reset: tableReset,
   } = useMutation((options: ITableParams) => fetchVaccineData(options));
+
+  const {
+    data: tableDataZipcode,
+    isLoading: tableLoadingZipcode,
+    mutate: tableMutationZipcode,
+    reset: tableResetZipcode,
+  } = useMutation((options: ITableParamsZipcode) =>
+    fetchVaccineDataByZipCode(options)
+  );
 
   const handleChange = (value: IFilterOption) => {
     setFilterOption(value);
+    if (value === "zipcode") {
+      tableReset();
+    } else if (value === "district") {
+      tableResetZipcode();
+    }
   };
 
   const handleStateChange = (value: string): void => {
@@ -74,6 +93,13 @@ const VaccineAvailability: React.FC = () => {
     });
   };
 
+  const searchByZipCode = () => {
+    tableMutationZipcode({
+      date: date,
+      zipcode: zipcodeOption,
+    });
+  };
+
   const renderSearchFields = (): JSX.Element => {
     if (filterOption === "zipcode") {
       return (
@@ -83,6 +109,10 @@ const VaccineAvailability: React.FC = () => {
             className="filter-search"
             allowClear
             placeholder="Enter a zipcode"
+            value={zipcodeOption}
+            onChange={(e) => {
+              setZipCodeOption(e.target.value);
+            }}
           />
           <DatePicker
             size="large"
@@ -90,7 +120,12 @@ const VaccineAvailability: React.FC = () => {
             format={dateFormat}
             onChange={onDateChange}
           />
-          <Button type="primary" size="large" icon={<SearchOutlined />}>
+          <Button
+            type="primary"
+            size="large"
+            icon={<SearchOutlined />}
+            onClick={searchByZipCode}
+          >
             Search
           </Button>
         </>
@@ -195,10 +230,15 @@ const VaccineAvailability: React.FC = () => {
                 </Button>
               </div>
             </SearchContainer>
-            {tableLoading ? (
+            {filterOption === "district" && tableLoading ? (
               <LoadingOutlined />
             ) : (
               <Table data={tableData?.sessions} />
+            )}
+            {filterOption === "zipcode" && tableLoadingZipcode ? (
+              <LoadingOutlined />
+            ) : (
+              <Table data={tableDataZipcode?.sessions} />
             )}
           </AvailibilityWrapper>
         </Col>
