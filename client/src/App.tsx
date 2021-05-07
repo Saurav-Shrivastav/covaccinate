@@ -1,3 +1,4 @@
+import HamburgerProvider from "context/HamburgerContext";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -19,12 +20,14 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={lightTheme}>
-        <GlobalStyles />
-        <div className="app">
-          <Router>
-            <Routes />
-          </Router>
-        </div>
+        <HamburgerProvider>
+          <GlobalStyles />
+          <div className="app">
+            <Router>
+              <Routes />
+            </Router>
+          </div>
+        </HamburgerProvider>
       </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

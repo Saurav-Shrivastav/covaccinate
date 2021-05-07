@@ -10,6 +10,24 @@ export const AvailibilityWrapper = styled.div`
     font-size: 3rem;
     font-weight: 800;
   }
+
+  .heading-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cowin {
+    align-self: center;
+  }
+
+  ${mdxl},
+  ${lg} {
+    .cowin {
+      display: none;
+    }
+  }
 `;
 
 export const SearchContainer = styled.div`
@@ -19,7 +37,9 @@ export const SearchContainer = styled.div`
   align-items: center;
 
   .search-section {
-    width: fit-content;
+    display: flex;
+    width: 100%;
+    /* justify-content: space-between; */
   }
 
   .filter-dropdown {
@@ -41,10 +61,6 @@ export const SearchContainer = styled.div`
     width: 250px;
   }
 
-  .cowin {
-    align-self: flex-end;
-  }
-
   ${mdxl},
   ${lg} {
     flex-direction: column;
@@ -64,9 +80,6 @@ export const SearchContainer = styled.div`
 
     .date-picker {
       margin-bottom: 1.5rem;
-    }
-    .cowin {
-      display: none;
     }
   }
 `;

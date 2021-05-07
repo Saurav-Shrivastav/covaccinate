@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { VaccineIcon } from "components/RegisterCard/RegisterCard.styles";
-import { xs } from "theme/breakpoints";
+import { md, xs } from "theme/breakpoints";
 
 export const NavContainer = styled.div`
   display: flex;
@@ -41,6 +41,28 @@ export const NavContainer = styled.div`
 
   .news {
     margin-right: 1rem;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  ${md} {
+    justify-content: stretch;
+    .action-container {
+      display: none;
+    }
+
+    .hamburger {
+      display: flex;
+      align-self: center;
+      margin-right: 1rem;
+
+      svg {
+        font-size: 1.4rem;
+        color: grey;
+      }
+    }
   }
 `;
 
