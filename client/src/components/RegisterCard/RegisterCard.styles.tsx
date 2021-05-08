@@ -119,6 +119,11 @@ export const StyledSelect = styled(Select)`
   & .ant-select-selection-item {
     line-height: 65px !important;
   }
+
+  & .ant-select-selection-search-input {
+    height: 65px !important;
+    padding: 0 1rem !important;
+  }
   font-size: 1.2rem;
   margin: 0 0.5rem 2rem 0;
   width: 100%;
@@ -133,25 +138,11 @@ export const StyledSelect = styled(Select)`
     & .ant-select-selection-item {
       line-height: 55px !important;
     }
-  }
-`;
 
-export const StyledInputPassword = styled(Input.Password)`
-  height: 65px;
-  border-radius: 50px;
-  padding: 1rem 2rem;
-  & .ant-input {
-    font-size: 1.2rem;
-  }
-  margin: 0 0.5rem 2rem 0;
-
-  svg {
-    font-size: 1.2rem;
-  }
-
-  ${xs} {
-    height: 55px;
-    margin-bottom: 1.5rem;
+    & .ant-select-selection-search-input {
+      height: 55px !important;
+      padding: 0 1rem !important;
+    }
   }
 `;
 

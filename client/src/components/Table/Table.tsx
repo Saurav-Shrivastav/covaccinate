@@ -18,31 +18,31 @@ const columns: ColumnsType<ITableObject> = [
     title: "Address",
     dataIndex: "address",
     key: "address",
-    responsive: ["lg"],
+    // responsive: ["lg"],
   },
   {
     title: "Pincode",
     dataIndex: "pincode",
     key: "pincode",
-    responsive: ["xxl"],
+    // responsive: ["xxl"],
   },
   {
     title: "Available Capacity",
     dataIndex: "available_capacity",
     key: "available_capacity",
-    responsive: ["lg"],
+    // responsive: ["lg"],
   },
   {
     title: "Min Age Limit",
     dataIndex: "min_age_limit",
     key: "min_age_limit",
-    responsive: ["lg"],
+    // responsive: ["lg"],
   },
   {
     title: "Vaccine Name",
     dataIndex: "vaccine",
     key: "vaccine",
-    responsive: ["lg"],
+    // responsive: ["lg"],
   },
   {
     title: "Slots",
@@ -60,21 +60,21 @@ const columns: ColumnsType<ITableObject> = [
       </>
     ),
   },
-  {
-    title: "Available Capacity / Vaccine Name / Min Age Limit / Fee Type",
-    render: (record) => (
-      <>
-        {record.available_capacity} / {record.vaccine} / {record.min_age_limit}{" "}
-        / {record.fee_type}
-      </>
-    ),
-    responsive: ["xs", "sm"],
-  },
+  // {
+  //   title: "Available Capacity / Vaccine Name / Min Age Limit / Fee Type",
+  //   render: (record) => (
+  //     <>
+  //       {record.available_capacity} / {record.vaccine} / {record.min_age_limit}{" "}
+  //       / {record.fee_type}
+  //     </>
+  //   ),
+  //   responsive: ["xs", "sm"],
+  // },
   {
     title: "Fee Type",
     dataIndex: "fee_type",
     key: "fee_type",
-    responsive: ["lg"],
+    // responsive: ["lg"],
   },
 ];
 
@@ -85,7 +85,11 @@ const Table: React.FC<IProps> = ({ data }) => {
       <Row>
         <Col span={24}>
           {data.length > 0 ? (
-            <Datagrid columns={columns} dataSource={data} />
+            <Datagrid
+              columns={columns}
+              dataSource={data}
+              scroll={{ x: true }}
+            />
           ) : (
             <h1>No Slots Available</h1>
           )}
