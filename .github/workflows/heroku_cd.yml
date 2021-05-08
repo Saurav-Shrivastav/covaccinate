@@ -1,11 +1,9 @@
 name: Django CD workflow for heroku
 
-
 on:
   push:
     branches:
       - main
-
 
 jobs:
   deploy:

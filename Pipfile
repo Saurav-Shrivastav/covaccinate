@@ -16,6 +16,7 @@ psycopg2-binary = "*"
 dj-database-url = "*"
 requests = "*"
 simplejson = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.8"
