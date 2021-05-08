@@ -212,7 +212,13 @@ const VaccineAvailability: React.FC = () => {
             <div className="heading-wrapper">
               <h1 className="heading">Availabilty</h1>
               <div className="cowin">
-                <Button type="primary" size="large">
+                <Button
+                  type="primary"
+                  size="large"
+                  onClick={() => {
+                    window.open("https://www.cowin.gov.in/home");
+                  }}
+                >
                   Open CoWin
                 </Button>
               </div>

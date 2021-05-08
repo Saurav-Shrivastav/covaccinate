@@ -43,7 +43,13 @@ const HamburgerMenu: React.FC = () => {
         <Menu.Item key="3" icon={<BookOutlined />}>
           Vaccine News
         </Menu.Item>
-        <Menu.Item key="4" icon={<ExportOutlined />}>
+        <Menu.Item
+          key="4"
+          icon={<ExportOutlined />}
+          onClick={() => {
+            window.open("https://www.cowin.gov.in/home");
+          }}
+        >
           Open CoWin
         </Menu.Item>
       </Menu>
