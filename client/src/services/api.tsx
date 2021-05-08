@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
 import Axios from "axios";
+import axios from "utils/axios";
 
 export interface IStateObject {
   state_id: number;
@@ -103,6 +104,23 @@ export const fetchVaccineDataByZipCode = async (
   try {
     const res: AxiosResponse<ITableData> = await Axios.get(
       `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${options.zipcode}&date=${options.date}`
+    );
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const registerUser = async (formData: FormData): Promise<any> => {
+  try {
+    const res: AxiosResponse<ITableData> = await axios.post(
+      `/users/register/`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
     return res.data;
   } catch (error) {

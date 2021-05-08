@@ -1,17 +1,23 @@
-import React from "react";
-import { EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
+import React, { useState } from "react";
+import { useMutation, useQuery } from "react-query";
 import { Option } from "antd/lib/mentions";
 import { Formik, FormikProps } from "formik";
-import { Button, message } from "antd";
+import { Button, message, notification } from "antd";
 import { Form } from "formik-antd";
 import { useHistory } from "react-router-dom";
 import { RegistrationSchema } from "utils/RegisterSchema";
+import Loading from "pages/Loading/Loading";
+import {
+  fetchDistricts,
+  fetchStates,
+  IStatesData,
+  registerUser,
+} from "services/api";
 
 import {
   Card,
   StyledInput,
   VaccineIcon,
-  StyledInputPassword,
   StyledButton,
   StyledSelect,
   StyledFormItem,
@@ -22,9 +28,10 @@ import syringe from "../../assets/syringe.png";
 interface FormValues {
   name: string;
   email: string;
-  password: string;
   category: string;
   zipcode: string;
+  state: string;
+  district: string;
 }
 
 interface OtherProps {
@@ -35,13 +42,68 @@ interface OtherProps {
 const initialValues: FormValues = {
   name: "",
   email: "",
-  password: "",
   category: "",
   zipcode: "",
+  state: "",
+  district: "",
 };
 
 const RegisterCard: React.FC = () => {
   const { push } = useHistory();
+  const formData = new FormData();
+  const [districtName, setDistrictName] = useState<string>("");
+  const { data: states, isLoading: statesLoading } = useQuery<IStatesData>(
+    "state-data",
+    fetchStates,
+    {
+      cacheTime: 10 * 60 * 1000,
+      staleTime: Infinity,
+    }
+  );
+  const {
+    data: districts,
+    isLoading: districtsLoading,
+    mutate: districtMutation,
+  } = useMutation((id: string) => fetchDistricts(parseInt(id)));
+
+  const { isLoading: registerLoading, mutate: registerMutation } = useMutation(
+    (formData: FormData) => registerUser(formData),
+    {
+      onSuccess: (data: string) => {
+        notification.success({
+          message: data,
+          description:
+            "Sit back and Relax! We will notify you regarding the vaccine's availability ",
+        });
+      },
+      onError: (err) => {
+        console.log(err);
+        notification.error({
+          message: "Something went wrong",
+          description: "Please try again later",
+        });
+      },
+    }
+  );
+
+  const handleStatesChange = (
+    value: string,
+    formik: FormikProps<FormValues>
+  ): void => {
+    const { handleChange } = formik;
+    handleChange(value);
+    districtMutation(value);
+  };
+
+  const handleDistrictsChange = (
+    value: string,
+    option: any,
+    formik: FormikProps<FormValues>
+  ): void => {
+    const { handleChange } = formik;
+    handleChange(value);
+    setDistrictName(option?.children);
+  };
 
   const onSubmit = (formik: OtherProps & FormikProps<FormValues>): void => {
     const { handleSubmit, isValid } = formik;
@@ -51,6 +113,10 @@ const RegisterCard: React.FC = () => {
       handleSubmit();
     }
   };
+
+  if (statesLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -80,11 +146,25 @@ const RegisterCard: React.FC = () => {
           initialValues={initialValues}
           validationSchema={RegistrationSchema}
           onSubmit={(values) => {
-            console.log(values);
+            const { email, name, zipcode, district, category } = values;
+            formData.append("email", email);
+            formData.append("name", name);
+            formData.append("pincode", zipcode);
+            formData.append("district", districtName);
+            formData.append("district_id", district);
+            formData.append("category", category);
+            registerMutation(formData);
           }}
         >
           {(props) => {
-            const { name, password, email, category, zipcode } = props.values;
+            const {
+              name,
+              email,
+              category,
+              zipcode,
+              state,
+              district,
+            } = props.values;
 
             return (
               <>
@@ -105,16 +185,64 @@ const RegisterCard: React.FC = () => {
                       onChange={props.handleChange}
                     />
                   </StyledFormItem>
-                  <StyledFormItem name="password">
-                    <StyledInputPassword
-                      name="password"
-                      placeholder="Password"
-                      value={password}
-                      onChange={props.handleChange}
-                      iconRender={(visible) =>
-                        visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                  <StyledFormItem name="state">
+                    <StyledSelect
+                      name="state"
+                      value={state}
+                      onChange={(value: string) => {
+                        handleStatesChange(value, props);
+                      }}
+                      showSearch
+                      filterOption={(input, option) =>
+                        option?.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0 ||
+                        option?.value
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
                       }
-                    />
+                    >
+                      <Option value="" disabled>
+                        Select a state
+                      </Option>
+                      {states?.states.map((stateItem) => (
+                        <Option value={stateItem.state_id.toString()}>
+                          {stateItem.state_name}
+                        </Option>
+                      ))}
+                    </StyledSelect>
+                  </StyledFormItem>
+                  <StyledFormItem name="district">
+                    <StyledSelect
+                      name="district"
+                      value={district}
+                      onChange={(value: string, option) => {
+                        handleDistrictsChange(value, option, props);
+                      }}
+                      showSearch
+                      filterOption={(input, option) =>
+                        option?.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0 ||
+                        option?.value
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      }
+                    >
+                      <Option value="" disabled>
+                        Select a district
+                      </Option>
+                      {districtsLoading && (
+                        <Option value="loading" disabled>
+                          Fetching districts
+                        </Option>
+                      )}
+                      {districts?.districts.map((districtItem) => (
+                        <Option value={districtItem.district_id.toString()}>
+                          {districtItem.district_name}
+                        </Option>
+                      ))}
+                    </StyledSelect>
                   </StyledFormItem>
                   <StyledFormItem name="category">
                     <StyledSelect
@@ -126,7 +254,7 @@ const RegisterCard: React.FC = () => {
                       <Option value="" disabled>
                         Select an age category
                       </Option>
-                      <Option value="18-45">18-45</Option>
+                      <Option value="18-44">18-44</Option>
                       <Option value="45+">45+</Option>
                     </StyledSelect>
                   </StyledFormItem>
@@ -144,6 +272,7 @@ const RegisterCard: React.FC = () => {
                   onClick={() => {
                     onSubmit(props);
                   }}
+                  loading={registerLoading}
                 >
                   Register
                 </StyledButton>

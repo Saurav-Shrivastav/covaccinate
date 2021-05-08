@@ -21,7 +21,12 @@ const Nav: React.FC = () => {
           }}
         />
       </div>
-      <div className="logo-row">
+      <div
+        className="logo-row"
+        onClick={() => {
+          push("/");
+        }}
+      >
         <NavIcon src={syringe} alt="syringe" />
         <h2 className="logo-text">Jab.Me</h2>
       </div>

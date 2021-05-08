@@ -18,6 +18,7 @@ export const NavContainer = styled.div`
     align-self: flex-start;
     align-items: center;
     height: 100%;
+    cursor: pointer;
   }
 
   .logo-text {
