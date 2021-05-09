@@ -3,12 +3,12 @@ import re
 from datetime import date
 
 import requests
-import simplejson
 from django.contrib.auth import get_user_model
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 from django.db import models
+from fake_useragent import UserAgent
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -59,14 +59,51 @@ class FindSlotView(APIView):
             .values("district_id")
             .annotate(n=models.Count("pk"))
         )
+        user_agent = UserAgent()
         today = date.today().strftime("%d-%m-%Y")
         for district in district_ids:
-            headers_dict = {
-                "accept": "application/json",
-                "Accept-Language": "hi_IN",
-            }
+            four5 = []
+            eighteen = []
+            headers = {"User-Agent": user_agent.random}
             url = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id={district['district_id']}&date={today}"
-            r = requests.get(url, headers=headers_dict).text
-            print(r)
+            r = json.loads(requests.get(url, headers=headers).text)
+            if "centers" in r:
+                for center in r["centers"]:
+                    for session in center["sessions"]:
+                        if session["min_age_limit"] == 45:
+                            four5.append(
+                                {
+                                    "name": center["name"],
+                                    "date": session["date"],
+                                    "slots": session["slots"],
+                                    "vaccine": session["vaccine"],
+                                    "address": center["address"],
+                                    "block_name": center["block_name"],
+                                    "fee_type": center["fee_type"],
+                                }
+                            )
+                        elif session["min_age_limit"] == 18:
+                            eighteen.append(
+                                {
+                                    "name": center["name"],
+                                    "date": session["date"],
+                                    "slots": session["slots"],
+                                    "vaccine": session["vaccine"],
+                                    "address": center["address"],
+                                    "block_name": center["block_name"],
+                                    "fee_type": center["fee_type"],
+                                }
+                            )
+            else:
+                break
+            emails45 = User.objects.filter(
+                district_id=district["district_id"], age_category="45+"
+            ).values("email", "name")
+            emails1844 = User.objects.filter(
+                district_id=district["district_id"], age_category="18-44"
+            ).values("email", "name")
+            print(emails1844, emails45)
+
+            # TODO: send emails and notifications to people with vaccine availability
 
         return Response("haha")

@@ -16,6 +16,7 @@ psycopg2-binary = "*"
 dj-database-url = "*"
 requests = "*"
 simplejson = "*"
+fake-useragent = "*"
 django-cors-headers = "*"
 
 [requires]
