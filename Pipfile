@@ -17,6 +17,7 @@ dj-database-url = "*"
 requests = "*"
 simplejson = "*"
 fake-useragent = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.8"

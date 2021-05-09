@@ -2,11 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -23,12 +19,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules",
-    "build",
-    "public"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "build", "public"]
 }
