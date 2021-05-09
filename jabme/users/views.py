@@ -9,6 +9,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 from django.db import models
+from fake_useragent import UserAgent
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -59,14 +60,16 @@ class FindSlotView(APIView):
             .values("district_id")
             .annotate(n=models.Count("pk"))
         )
+        user_agent = UserAgent()
         today = date.today().strftime("%d-%m-%Y")
         for district in district_ids:
-            headers_dict = {
-                "accept": "application/json",
-                "Accept-Language": "hi_IN",
-            }
+            headers = {"User-Agent": user_agent.random}
             url = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id={district['district_id']}&date={today}"
-            r = requests.get(url, headers=headers_dict).text
-            print(r)
+            r = requests.get(url, headers=headers).text
+            if "centers" in r:
+                emails = User.objects.filter(
+                    district_id=district["district_id"]
+                ).values("email", "name", "age_category")
+                print(emails)
 
         return Response("haha")
