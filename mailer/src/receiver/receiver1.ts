@@ -41,22 +41,28 @@ const main = async () => {
     durable: false,
   });
 
-  // Sending messages
-  let secs = 1;
-  const interval = setInterval(() => {
-    const msg = `${secs}-message`;
-    channel.sendToQueue(queue, Buffer.from(msg), {
-      // true in production
-      persistent: false,
-    });
-    console.log(`Sent message to queue ${msg}`);
-    secs++;
-  }, 1000);
+  console.log("Waiting for messages in queue...");
+  channel.prefetch(1);
 
-  setTimeout(() => {
-    clearInterval(interval);
-    console.log("Stopped sending messages");
-  }, 10000);
+  channel.consume(
+    queue,
+    (msg) => {
+      if (msg) {
+        const msgStr = msg.content.toString();
+        console.log(`Received new message ${msgStr}`);
+
+        const secs = Number(msgStr?.split("-")[0]);
+
+        setTimeout(() => {
+          console.log(`message ${msgStr} completed...`);
+          channel.ack(msg);
+        }, secs * 1000);
+      }
+    },
+    {
+      noAck: false,
+    }
+  );
 };
 
 main();
