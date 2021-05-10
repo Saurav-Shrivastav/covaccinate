@@ -6,8 +6,8 @@ type ResponseData = { [key: string]: string }[];
 const requestPromise = () => {
   console.log("Trying to fetch...");
   return axios.default
-    .get("https://fakerapi.it/api/v1/users?_quantity=1&_gender=male")
-    .then((res) => res.data as ResponseData)
+    .get("https://fakerapi.it/api/v1/users?_quantity=1")
+    .then((res) => res.data.data as ResponseData)
     .catch((err: Error) => {
       console.error(err.message);
       return null;
@@ -34,6 +34,7 @@ const fetch = async () => {
   const email = responseData.map((obj) => obj.email);
 
   return {
+    date: new Date().toUTCString(),
     data,
     email,
   };
@@ -43,7 +44,9 @@ const main = async () => {
   console.log("Trying to connect...");
 
   const connection = await amqp
-    .connect("amqp://localhost?heartbeat=30")
+    .connect(
+      "amqps://lwoowmfz:tS7UsVg6_jI2Cn2NP52DCImMO1yj53KI@baboon.rmq.cloudamqp.com/lwoowmfz?heartbeat=30"
+    )
     .then((conn) => conn)
     .catch((err: Error) => err.message);
 
@@ -96,7 +99,7 @@ const main = async () => {
         });
       }
     });
-  }, 15 * 60 * 1000);
+  }, 10000);
 };
 
 main();
