@@ -56,11 +56,12 @@ class FindSlotView(APIView):
     def get(self, request):
         district_ids = (
             User.objects.filter()
-            .values("district_id")
+            .values("district_id", "district")
             .annotate(n=models.Count("pk"))
         )
         user_agent = UserAgent()
         today = date.today().strftime("%d-%m-%Y")
+        result = []
         for district in district_ids:
             four5 = []
             eighteen = []
@@ -102,8 +103,15 @@ class FindSlotView(APIView):
             emails1844 = User.objects.filter(
                 district_id=district["district_id"], age_category="18-44"
             ).values("email", "name")
-            print(emails1844, emails45)
+            result.append(
+                {
+                    "district": district["district"],
+                    "district_id": district["district_id"],
+                    "emails45+": emails45,
+                    "data45+": four5,
+                    "emails18-44": emails1844,
+                    "data18-44": eighteen,
+                }
+            )
 
-            # TODO: send emails and notifications to people with vaccine availability
-
-        return Response("haha")
+        return Response(result)
