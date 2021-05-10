@@ -56,7 +56,7 @@ class FindSlotView(APIView):
     def get(self, request):
         district_ids = (
             User.objects.filter()
-            .values("district_id", "district")
+            .values("district_id")
             .annotate(n=models.Count("pk"))
         )
         user_agent = UserAgent()
@@ -72,28 +72,42 @@ class FindSlotView(APIView):
             if "centers" in r:
                 for center in r["centers"]:
                     for session in center["sessions"]:
-                        if session["min_age_limit"] == 45:
+                        if (
+                            session["min_age_limit"] == 45
+                            and session["available_capacity"] > 0
+                        ):
                             four5.append(
                                 {
                                     "name": center["name"],
                                     "date": session["date"],
                                     "slots": session["slots"],
                                     "vaccine": session["vaccine"],
+                                    "availability": session[
+                                        "available_capacity"
+                                    ],
                                     "address": center["address"],
                                     "block_name": center["block_name"],
                                     "fee_type": center["fee_type"],
+                                    "min_age_limit": session["min_age_limit"],
                                 }
                             )
-                        elif session["min_age_limit"] == 18:
+                        elif (
+                            session["min_age_limit"] == 18
+                            and session["available_capacity"] > 0
+                        ):
                             eighteen.append(
                                 {
                                     "name": center["name"],
                                     "date": session["date"],
                                     "slots": session["slots"],
                                     "vaccine": session["vaccine"],
+                                    "availability": session[
+                                        "available_capacity"
+                                    ],
                                     "address": center["address"],
                                     "block_name": center["block_name"],
                                     "fee_type": center["fee_type"],
+                                    "min_age_limit": session["min_age_limit"],
                                 }
                             )
             else:
@@ -104,15 +118,51 @@ class FindSlotView(APIView):
             emails1844 = User.objects.filter(
                 district_id=district["district_id"], age_category="18-44"
             ).values("email", "name")
-            result.append(
-                {
-                    "district": district["district"],
-                    "district_id": district["district_id"],
-                    "emails45+": emails45,
-                    "data45+": four5,
-                    "emails18-44": emails1844,
-                    "data18-44": eighteen,
-                }
-            )
+            if eighteen or four5:
+                if eighteen and four5:
+                    if emails1844.exists() and emails45.exists():
+                        result.append(
+                            {
+                                "district_id": district["district_id"],
+                                "emails45+": emails45,
+                                "data45+": four5,
+                                "emails18-44": emails1844,
+                                "data18-44": eighteen,
+                            }
+                        )
+                    elif emails1844.exists() and not emails45.exists():
+                        result.append(
+                            {
+                                "district_id": district["district_id"],
+                                "emails18-44": emails1844,
+                                "data18-44": eighteen,
+                            }
+                        )
+                    elif emails45.exists() and not emails1844.exists():
+                        result.append(
+                            {
+                                "district_id": district["district_id"],
+                                "emails45+": emails45,
+                                "data45+": four5,
+                            }
+                        )
+                elif eighteen and not four5:
+                    if emails1844.exists():
+                        result.append(
+                            {
+                                "district_id": district["district_id"],
+                                "emails18-44": emails1844,
+                                "data18-44": eighteen,
+                            }
+                        )
+                elif four5 and not eighteen:
+                    if emails45.exists():
+                        result.append(
+                            {
+                                "district_id": district["district_id"],
+                                "emails45+": emails45,
+                                "data45+": four5,
+                            }
+                        )
 
         return Response(result)
