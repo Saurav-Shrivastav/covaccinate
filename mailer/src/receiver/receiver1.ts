@@ -4,23 +4,25 @@ const main = async () => {
   console.log("Trying to connect...");
 
   const connection = await amqp
-    .connect("amqp://localhost")
+    .connect("amqp://localhost?heartbeat=30")
     .then((conn) => conn)
     .catch((err: Error) => err.message);
 
   if (typeof connection === "string") {
     console.log("Connection failed...");
-    return;
+    process.exit(1);
   }
 
   console.log("Connected...");
 
   connection.on("error", () => {
     console.log("Error in connection...");
+    connection.close();
   });
 
   connection.on("close", () => {
     console.log("connection closed...");
+    process.exit(1);
   });
 
   const channel = await connection
@@ -48,15 +50,14 @@ const main = async () => {
     queue,
     (msg) => {
       if (msg) {
-        const msgStr = msg.content.toString();
-        console.log(`Received new message ${msgStr}`);
-
-        const secs = Number(msgStr?.split("-")[0]);
+        console.log("Received new message...");
+        const obj = JSON.parse(msg.content.toString());
+        console.log(obj);
 
         setTimeout(() => {
-          console.log(`message ${msgStr} completed...`);
+          console.log(`message completed...`);
           channel.ack(msg);
-        }, secs * 1000);
+        }, 5000);
       }
     },
     {
