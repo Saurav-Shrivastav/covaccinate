@@ -4,7 +4,9 @@ const main = async () => {
   console.log("Trying to connect...");
 
   const connection = await amqp
-    .connect("amqp://localhost?heartbeat=30")
+    .connect(
+      "amqps://lwoowmfz:tS7UsVg6_jI2Cn2NP52DCImMO1yj53KI@baboon.rmq.cloudamqp.com/lwoowmfz?heartbeat=30"
+    )
     .then((conn) => conn)
     .catch((err: Error) => err.message);
 
