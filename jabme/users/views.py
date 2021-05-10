@@ -67,7 +67,8 @@ class FindSlotView(APIView):
             eighteen = []
             headers = {"User-Agent": user_agent.random}
             url = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id={district['district_id']}&date={today}"
-            r = json.loads(requests.get(url, headers=headers).text)
+            r = requests.get(url, headers=headers).text
+            r = json.loads(r)
             if "centers" in r:
                 for center in r["centers"]:
                     for session in center["sessions"]:
