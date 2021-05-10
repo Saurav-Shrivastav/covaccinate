@@ -5,7 +5,7 @@ import * as functions from "firebase-functions";
 // * Routes
 import news from "./routes/news";
 
-import { scraper } from "./scraper";
+// import { scraper } from "./scraper";
 
 const app = express();
 
@@ -26,12 +26,12 @@ app.use("/scraper-api", news);
 // });
 
 exports.api = functions.https.onRequest(app);
-exports.scheduledFunction = functions.pubsub
-  .schedule("0 */6 * * *")
-  // @ts-ignore
-  .onRun((context) => {
-    scraper()
-      .then(() => console.log("successfully scraped"))
-      .catch((err) => console.log(err));
-    return null;
-  });
+// exports.scheduledFunction = functions.pubsub
+//   .schedule("0 */6 * * *")
+//   // @ts-ignore
+//   .onRun((context) => {
+//     scraper()
+//       .then(() => console.log("successfully scraped"))
+//       .catch((err) => console.log(err));
+//     return null;
+//   });

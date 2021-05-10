@@ -11,7 +11,7 @@ interface INews {
   link: string;
 }
 
-export const scraper = async () => {
+const scraper = async () => {
   const fetchNdtv = async () => {
     try {
       const res = await axios.get(
@@ -112,3 +112,5 @@ export const scraper = async () => {
   await batch.commit();
   console.log(filteredNews);
 };
+
+scraper();
