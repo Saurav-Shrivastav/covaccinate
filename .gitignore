@@ -45,5 +45,5 @@ mailer/node_modules/
 mailer/package-lock.json
 
 # scraper
-scraper/src/firebase-keys.json
+scraper/functions/src/firebase-keys.json
 lib/
