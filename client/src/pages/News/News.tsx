@@ -28,8 +28,8 @@ const News: React.FC = () => {
   }
   return (
     <Layout>
-      <Row>
-        <Col span={24}>
+      <Row justify="center">
+        <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
           <NewsWrapper>
             <h1 className="heading">Vaccine News</h1>
             {news?.data.map((item, index) => (
