@@ -31,7 +31,14 @@ const Nav: React.FC = () => {
         <h2 className="logo-text">Jab.Me</h2>
       </div>
       <div className="action-container">
-        <Button type="primary" ghost className="news">
+        <Button
+          type="primary"
+          ghost
+          className="news"
+          onClick={() => {
+            push("/news");
+          }}
+        >
           Vaccine News
         </Button>
         <Button

@@ -16,4 +16,26 @@ export const GlobalStyles = createGlobalStyle`
     transition: all 0.25s linear;
     overflow-x: hidden;
   }
+
+  /* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fff;
+  /* box-shadow: inset 0 0 5px grey; */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
   `;

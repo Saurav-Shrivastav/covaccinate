@@ -9,6 +9,7 @@ const Register = lazy(() => import("pages/Register/Register"));
 const VaccineAvailability = lazy(
   () => import("pages/VaccineAvailability/VaccineAvailability")
 );
+const News = lazy(() => import("pages/News/News"));
 
 const Routes = () => {
   return (
@@ -20,6 +21,7 @@ const Routes = () => {
           path="/availability"
           component={VaccineAvailability}
         />
+        <RouteWrapper exact path="/news" component={News} />
       </Switch>
     </Suspense>
   );
