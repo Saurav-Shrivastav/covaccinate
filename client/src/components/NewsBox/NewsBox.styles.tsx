@@ -10,7 +10,7 @@ export const NewsCard = styled.div`
 
   .headline {
     font-size: 1.6rem;
-    line-height: 1.4rem;
+    line-height: 2rem;
     font-weight: 800;
     letter-spacing: -0.04rem;
     cursor: pointer;
