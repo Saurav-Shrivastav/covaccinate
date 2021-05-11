@@ -11,7 +11,7 @@ interface INews {
   link: string;
 }
 
-const scraper = async () => {
+export const scraper = async () => {
   const fetchNdtv = async () => {
     try {
       const res = await axios.get(
@@ -101,16 +101,29 @@ const scraper = async () => {
     "vaccinate",
   ];
   const filteredNews: INews[] = [];
+
   const batch = db.batch();
   finalArr.map((item) => {
     if (keywords.some((substring) => item.headline.includes(substring))) {
       filteredNews.push(item);
-      const docRef = db.collection("news").doc(uuidv4());
-      batch.set(docRef, item);
     }
   });
-  await batch.commit();
+  if (filteredNews.length > 0) {
+    const newsRef = db.collection("news");
+    const snapshot = await newsRef.get();
+    if (snapshot.size > 0) {
+      const deleteBatch = db.batch();
+      snapshot.docs.forEach((doc) => {
+        deleteBatch.delete(doc.ref);
+      });
+      await deleteBatch.commit();
+    }
+    filteredNews.forEach((item) => {
+      const docRef = db.collection("news").doc(uuidv4());
+      batch.set(docRef, item);
+    });
+    await batch.commit();
+  }
   console.log(filteredNews);
+  return null;
 };
-
-scraper();
