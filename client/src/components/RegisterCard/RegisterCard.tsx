@@ -121,7 +121,14 @@ const RegisterCard: React.FC = () => {
   return (
     <>
       <Header>
-        <Button type="primary" ghost className="news">
+        <Button
+          type="primary"
+          ghost
+          className="news"
+          onClick={() => {
+            push("/news");
+          }}
+        >
           Vaccine News
         </Button>
         <Button

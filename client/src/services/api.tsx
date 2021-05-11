@@ -61,6 +61,16 @@ export interface ITableData {
   sessions: ITableObject[];
 }
 
+export interface INewsObject {
+  headline: string;
+  link: string;
+}
+
+export interface INewsData {
+  success: boolean;
+  data: INewsObject[];
+}
+
 export const fetchStates = async (): Promise<IStatesData> => {
   try {
     const res: AxiosResponse<IStatesData> = await Axios.get(
@@ -121,6 +131,17 @@ export const registerUser = async (formData: FormData): Promise<any> => {
           "Content-Type": "multipart/form-data",
         },
       }
+    );
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchNews = async (): Promise<INewsData> => {
+  try {
+    const res: AxiosResponse<INewsData> = await Axios.get(
+      "https://asia-south1-jabmescraper.cloudfunctions.net/api/scraper-api/all"
     );
     return res.data;
   } catch (error) {

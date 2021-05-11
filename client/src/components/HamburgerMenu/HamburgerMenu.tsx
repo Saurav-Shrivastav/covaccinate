@@ -40,7 +40,14 @@ const HamburgerMenu: React.FC = () => {
         >
           Check Vaccine Availability
         </Menu.Item>
-        <Menu.Item key="3" icon={<BookOutlined />}>
+        <Menu.Item
+          key="3"
+          icon={<BookOutlined />}
+          onClick={() => {
+            push("/news");
+            setIsVisible(false);
+          }}
+        >
           Vaccine News
         </Menu.Item>
         <Menu.Item
