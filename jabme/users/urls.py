@@ -1,6 +1,6 @@
 from django.urls import path
 
-from jabme.users.views import FindSlotView, RegisterView
+from users.views import FindSlotView, RegisterView
 
 urlpatterns = [
     path("register/", RegisterView.as_view(), name="register"),

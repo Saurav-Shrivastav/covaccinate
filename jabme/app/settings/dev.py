@@ -2,7 +2,7 @@ import os
 
 import environ
 
-from jabme.app.settings.base import *  # noqa
+from app.settings.base import *  # noqa
 
 env = environ.Env(DEBUG=(bool, False))
 # reading .env file
