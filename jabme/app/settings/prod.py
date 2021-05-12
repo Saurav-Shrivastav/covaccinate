@@ -1,7 +1,6 @@
 import os
 
 import dj_database_url
-
 from app.settings.base import *  # noqa
 
 SECRET_KEY = os.environ.get(

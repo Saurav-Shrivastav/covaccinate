@@ -1,7 +1,6 @@
 import os
 
 import environ
-
 from app.settings.base import *  # noqa
 
 env = environ.Env(DEBUG=(bool, False))

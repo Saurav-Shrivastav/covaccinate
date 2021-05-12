@@ -6,7 +6,6 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-
 from users.managers import UserManager
 
 PINCODE_REGEX = "^[1-9][0-9]{5}$"
