@@ -7,11 +7,28 @@ on:
 
 jobs:
   deploy:
-    name: Deploy on Heroku
+    name: "Deploy to Heroku"
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 14.16.0
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.16.0"
+
+      - name: npm install
+        working-directory: ./client
+        run: npm install -f
+
+      - name: npm run build
+        working-directory: ./client
+        run: npm run build --if-present
+
+      - name: Deploy on Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "jabme"
