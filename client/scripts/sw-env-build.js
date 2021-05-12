@@ -1,7 +1,10 @@
+const path = require("path");
+require("dotenv").config({
+  path: path.resolve(__dirname, "../.env"),
+});
 const fs = require("fs");
 
 const data = `
-require("dotenv").config();
 const swprocess = {
     env: {
         REACT_APP_FIREBASE_API_KEY:process.env.REACT_APP_FIREBASE_API_KEY,
