@@ -16,4 +16,4 @@ const process = {
 }
 `;
 
-fs.writeFileSync("../public/swenv.js", data);
+fs.writeFileSync("./public/swenv.js", data);
