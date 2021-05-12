@@ -1,12 +1,11 @@
 import os
 
 import environ
-
-from jabme.app.settings.base import *  # noqa
+from app.settings.base import *  # noqa
 
 env = environ.Env(DEBUG=(bool, False))
 # reading .env file
-environ.Env.read_env(env_file=os.path.join(BASE_DIR, "./.env"))  # noqa
+environ.Env.read_env(env_file=os.path.join(BASE_DIR, "../.env"))  # noqa
 
 
 # False if not in env

@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 FRONTEND_DIR = os.path.abspath(os.path.join(BASE_DIR, "client"))
 
 # Application definition
@@ -16,7 +16,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "rest_framework",
-    "jabme.users",
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -32,7 +32,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
-ROOT_URLCONF = "jabme.app.urls"
+ROOT_URLCONF = "app.urls"
 
 TEMPLATES = [
     {
@@ -50,7 +50,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "jabme.app.wsgi.application"
+WSGI_APPLICATION = "app.wsgi.application"
 AUTH_USER_MODEL = "users.User"
 
 
