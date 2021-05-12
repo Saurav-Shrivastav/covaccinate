@@ -22,8 +22,8 @@ jobs:
 
       - name: npm install
         run: npm install -f
-        working-directory: ./client
+        working-directory: ./jabme/client
 
       - name: build test
         run: npm run build
-        working-directory: ./client
+        working-directory: ./jabme/client

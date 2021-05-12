@@ -48,9 +48,9 @@ jobs:
 
       - name: Execute the tests
         run: |
-          pipenv run python manage.py test
+          pipenv run python jabme/manage.py test
         env:
-          DJANGO_SETTINGS_MODULE: jabme.app.settings.prod
+          DJANGO_SETTINGS_MODULE: app.settings.prod
 
       - name: QA Tests
         run: |
