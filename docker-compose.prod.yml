@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: jabme/Dockerfile
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    expose:
+      - 8000
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+  db:
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=jabme
+      - POSTGRES_PASSWORD=jabme
+      - POSTGRES_DB=jabme_prod
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:

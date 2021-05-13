@@ -1,17 +1,16 @@
 import os
 
-import dj_database_url
 from app.settings.base import *  # noqa
 
+print(os.environ.get("SECRET_KEY"), os.environ.get("DEBUG"))
+
 SECRET_KEY = os.environ.get(
-    "DJANGO_SECRET_KEY", "p7g_g$a7^qfn!zxc&h+fbvy*0+@trz7)pkr#54elu!1u#rg@tq"
+    "SECRET_KEY", "p7g_g$a7^qfn!zxc&h+fbvy*0+@trz7)pkr#54elu!1u#rg@tq"
 )
-DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
-ALLOWED_HOSTS = ["jabme.herokuapp.com"]
+DEBUG = int(os.environ.get("DEBUG", default=0))
+ALLOWED_HOSTS = os.environ.get(
+    "DJANGO_ALLOWED_HOSTS", "127.0.0.1 localhost"
+).split(" ")
 
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-
-# database config
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES["default"].update(db_from_env)  # noqa
