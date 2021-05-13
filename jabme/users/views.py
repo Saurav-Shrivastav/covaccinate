@@ -45,6 +45,8 @@ class RegisterView(APIView):
                 user.district = data["district"]
                 user.district_id = data["district_id"]
                 user.age_category = data["category"]
+                if "fcm_token" in data:
+                    user.fcm_token = data["fcm_token"]
                 user.save()
             except Exception:
                 return Response("Exception occured, enter correct data")

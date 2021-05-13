@@ -37,7 +37,15 @@ class CustomUserAdmin(UserAdmin):
         ("Personal Info", {"fields": ("name", "dateJoined")}),
         (
             "Details",
-            {"fields": ("pincode", "district", "district_id", "age_category")},
+            {
+                "fields": (
+                    "pincode",
+                    "district",
+                    "district_id",
+                    "age_category",
+                    "fcm_token",
+                )
+            },
         ),
         ("Permissions", {"fields": ("is_superuser", "is_staff", "is_active")}),
     )

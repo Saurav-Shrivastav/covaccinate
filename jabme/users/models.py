@@ -37,6 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     age_category = models.CharField(max_length=5, choices=AGE_CHOICES)
     name = models.CharField("Name", max_length=20)
     dateJoined = models.DateTimeField(default=timezone.now)
+    fcm_token = models.CharField(max_length=100, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
