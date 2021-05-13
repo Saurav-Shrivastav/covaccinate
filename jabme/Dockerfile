@@ -21,3 +21,6 @@ RUN pipenv install --system --deploy --ignore-pipfile
 
 # copy project
 COPY ./jabme .
+
+# run entrypoint.sh
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
