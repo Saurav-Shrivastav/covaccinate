@@ -18,7 +18,8 @@ firebase.initializeApp(config);
 const messaging = firebase.messaging();
 
 export const getToken = (
-  setTokenFound: React.Dispatch<React.SetStateAction<boolean>>
+  setTokenFound: React.Dispatch<React.SetStateAction<boolean>>,
+  setToken: React.Dispatch<React.SetStateAction<string | null>>
 ): Promise<void> => {
   return messaging
     .getToken({ vapidKey: process.env.REACT_APP_FIREBASE_VAPID_KEY })
@@ -26,6 +27,7 @@ export const getToken = (
       if (currentToken) {
         console.log("current token for client: ", currentToken);
         setTokenFound(true);
+        setToken(currentToken);
         // Track the token -> client mapping, by sending to backend server
         // show on the UI that permission is secured
       } else {

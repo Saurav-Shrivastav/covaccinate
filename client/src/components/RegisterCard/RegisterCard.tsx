@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { Option } from "antd/lib/mentions";
 import { Formik, FormikProps } from "formik";
@@ -7,6 +7,8 @@ import { Form } from "formik-antd";
 import { useHistory } from "react-router-dom";
 import { RegistrationSchema } from "utils/RegisterSchema";
 import Loading from "pages/Loading/Loading";
+import { getToken } from "services/firebase-init";
+
 import {
   fetchDistricts,
   fetchStates,
@@ -24,6 +26,8 @@ import {
   Header,
 } from "./RegisterCard.styles";
 import syringe from "../../assets/syringe.png";
+import { FcmTokenContext } from "context/FcmTokenContext";
+import Modal from "antd/lib/modal/Modal";
 
 interface FormValues {
   name: string;
@@ -50,8 +54,11 @@ const initialValues: FormValues = {
 
 const RegisterCard: React.FC = () => {
   const { push } = useHistory();
+  const { token, setToken } = useContext(FcmTokenContext);
   const formData = new FormData();
   const [districtName, setDistrictName] = useState<string>("");
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [, setTokenFound] = useState<boolean>(false);
   const { data: states, isLoading: statesLoading } = useQuery<IStatesData>(
     "state-data",
     fetchStates,
@@ -105,10 +112,27 @@ const RegisterCard: React.FC = () => {
     setDistrictName(option?.children);
   };
 
+  const handleOk = (formik: FormikProps<FormValues>): void => {
+    const { handleSubmit } = formik;
+    handleSubmit();
+  };
+
+  const handleCancel = (): void => {
+    setIsModalVisible(false);
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        getToken(setTokenFound, setToken);
+      }
+    });
+  };
+
   const onSubmit = (formik: OtherProps & FormikProps<FormValues>): void => {
     const { handleSubmit, isValid } = formik;
     if (!isValid) {
       message.error("Please fill all the details correctly", 2);
+    }
+    if (!token) {
+      setIsModalVisible(true);
     } else {
       handleSubmit();
     }
@@ -160,6 +184,7 @@ const RegisterCard: React.FC = () => {
             formData.append("district", districtName);
             formData.append("district_id", district);
             formData.append("category", category);
+            token && formData.append("fcm_token", token);
             registerMutation(formData);
           }}
         >
@@ -283,6 +308,25 @@ const RegisterCard: React.FC = () => {
                 >
                   Register
                 </StyledButton>
+                <Modal
+                  title="Confirmation"
+                  visible={isModalVisible}
+                  onOk={() => {
+                    handleOk(props);
+                  }}
+                  onCancel={() => {
+                    handleCancel();
+                  }}
+                  cancelText="Enable Notification"
+                  okText="Register anyways"
+                >
+                  <p>
+                    You have not enabled notfications for this app. If you
+                    proceed with the registration, you will not be able to
+                    receive push notifications regarding vaccine availabilty.
+                    You would only be notfied through mail.
+                  </p>
+                </Modal>
               </>
             );
           }}
