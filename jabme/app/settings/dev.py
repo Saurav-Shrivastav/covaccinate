@@ -5,7 +5,7 @@ from app.settings.base import *  # noqa
 
 env = environ.Env()
 # reading .env file
-environ.Env.read_env(env_file=os.path.join(BASE_DIR, "./.env.dev"))  # noqa
+environ.Env.read_env(env_file=os.path.join(BASE_DIR, "../.env.dev"))  # noqa
 
 
 # False if not in env

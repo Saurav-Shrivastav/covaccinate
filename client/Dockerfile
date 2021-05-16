@@ -1,5 +1,5 @@
 # Stage 1 - Build Phase
-FROM node:12.16.1-alpine
+FROM node:lts-alpine
 
 WORKDIR "/app"
 
@@ -13,7 +13,7 @@ RUN npm run build
 
 
 # Stage 2 - Run Phase
-FROM nginx
+FROM nginx:1.19.0-alpine
 
 EXPOSE 3000
 
