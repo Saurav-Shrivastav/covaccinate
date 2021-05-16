@@ -29,9 +29,9 @@ app.use(cors(corsOption));
 // * Routes
 app.use("/scraper-api", news);
 
-exports.api = functions.region("asia-south1").https.onRequest(app);
+exports.api = functions.region("asia-east2").https.onRequest(app);
 exports.scheduledFunction = functions
-  .region("asia-south1")
+  .region("asia-east2")
   .pubsub.schedule("0 */6 * * *")
   // @ts-ignore
   .onRun((context) => {

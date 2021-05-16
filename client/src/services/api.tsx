@@ -141,7 +141,7 @@ export const registerUser = async (formData: FormData): Promise<any> => {
 export const fetchNews = async (): Promise<INewsData> => {
   try {
     const res: AxiosResponse<INewsData> = await Axios.get(
-      "https://asia-south1-jabmescraper.cloudfunctions.net/api/scraper-api/all"
+      "https://asia-east2-covaccinate.cloudfunctions.net/api/scraper-api/all"
     );
     return res.data;
   } catch (error) {

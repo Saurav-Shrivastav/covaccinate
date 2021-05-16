@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ThemeProvider } from "styled-components";
@@ -8,6 +8,7 @@ import HamburgerProvider from "context/HamburgerContext";
 import { GlobalStyles } from "theme/global";
 import { lightTheme } from "theme/theme";
 import { getToken, onMessageListener } from "services/firebase-init";
+import { FcmTokenContext } from "context/FcmTokenContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,8 +20,10 @@ const queryClient = new QueryClient({
 
 const App: React.FC = () => {
   const [, setTokenFound] = useState<boolean>(false);
+  const { setToken } = useContext(FcmTokenContext);
   useEffect(() => {
-    getToken(setTokenFound);
+    getToken(setTokenFound, setToken);
+    // eslint-disable-next-line
   }, []);
 
   onMessageListener()
