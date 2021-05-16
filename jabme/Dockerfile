@@ -19,7 +19,7 @@ COPY Pipfile Pipfile.lock /usr/src/app/
 RUN pipenv install --system --deploy --ignore-pipfile
 
 # copy project
-COPY ./jabme .
+COPY . .
 
 # run entrypoint.sh
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
