@@ -5,6 +5,7 @@ type ResponseData = { [key: string]: string }[];
 
 const requestPromise = () => {
   console.log("Trying to fetch...");
+
   return axios.default
     .get("https://fakerapi.it/api/v1/users?_quantity=1")
     .then((res) => res.data.data as ResponseData)
@@ -45,7 +46,7 @@ const main = async () => {
 
   const connection = await amqp
     .connect(
-      "amqps//lwoowmfz:tS7UsVg6_jI2Cn2NP52DCImMO1yj53KI@baboon.rmq.cloudamqp.com/lwoowmfz?heartbeat=30"
+      "amqps://lwoowmfz:tS7UsVg6_jI2Cn2NP52DCImMO1yj53KI@baboon.rmq.cloudamqp.com/lwoowmfz?heartbeat=30"
     )
     .then((conn) => conn)
     .catch((err: Error) => err.message);
@@ -92,14 +93,13 @@ const main = async () => {
         console.log("No data fetched...");
       } else {
         const msg = JSON.stringify(data);
-
         channel.sendToQueue(queue, Buffer.from(msg), {
           // true in production
           persistent: false,
         });
       }
     });
-  }, 10000);
+  }, 5000);
 };
 
 main();
