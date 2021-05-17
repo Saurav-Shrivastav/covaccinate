@@ -46,6 +46,7 @@ coverage.xml
 mailer/lib/
 mailer/node_modules/
 mailer/package-lock.json
+mailer/src/config.ts
 
 # scraper
 scraper/functions/src/firebase-keys.json
