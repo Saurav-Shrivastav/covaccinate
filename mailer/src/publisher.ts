@@ -87,7 +87,7 @@ const main = async () => {
   });
 
   // Sending messages;
-  setInterval(() => {
+  const timeout = setInterval(() => {
     fetch().then((data) => {
       if (!data) {
         console.log("No data fetched...");
@@ -99,7 +99,11 @@ const main = async () => {
         });
       }
     });
-  }, 5000);
+  }, 15 * 60 * 1000);
+
+  setTimeout(() => {
+    clearInterval(timeout);
+  }, 1 * 60 * 60 * 1000);
 };
 
 main();
