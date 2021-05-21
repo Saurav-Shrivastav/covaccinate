@@ -44,6 +44,7 @@ jobs:
           WORKON_HOME: ~/.local/share/virtualenvs
           PIPENV_CACHE_DIR: ~/.local/share/pipcache
         run: |
+          cd jabme
           pipenv install --deploy --dev
 
       - name: Execute the tests
