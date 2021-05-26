@@ -82,6 +82,7 @@ const RegisterCard: React.FC = () => {
           description:
             "Sit back and Relax! We will notify you regarding the vaccine's availability ",
         });
+        setIsModalVisible(false);
       },
       onError: (err) => {
         console.log(err);
@@ -89,6 +90,7 @@ const RegisterCard: React.FC = () => {
           message: "Something went wrong",
           description: "Please try again later",
         });
+        setIsModalVisible(false);
       },
     }
   );
