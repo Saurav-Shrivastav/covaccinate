@@ -40,11 +40,20 @@ services:
       context: ./nginx
     volumes:
       - static_volume:/home/app/web/staticfiles
+      - ./nginx:/etc/nginx/conf.d
     ports:
-      - 3000:80
+      - 80:80
+      - 443:443
     depends_on:
       - web
       - client
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
 volumes:
   postgres_data:
