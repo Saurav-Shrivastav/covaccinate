@@ -6,9 +6,7 @@ const main = async () => {
   console.log("Trying to connect...");
 
   const connection = await amqp
-    .connect(
-      "amqps://lwoowmfz:tS7UsVg6_jI2Cn2NP52DCImMO1yj53KI@baboon.rmq.cloudamqp.com/lwoowmfz?heartbeat=30"
-    )
+    .connect(`${keys.RABBITMQ_CONNECTION}?heartbeat=30`)
     .then((conn) => conn)
     .catch((err: Error) => err.message);
 
@@ -44,7 +42,7 @@ const main = async () => {
 
   channel.assertQueue(queue, {
     // true in production
-    durable: false,
+    durable: true,
   });
 
   console.log("Waiting for messages in queue...");
@@ -52,22 +50,23 @@ const main = async () => {
 
   // Mailing System
   const who = process.env.WHO?.trim().toUpperCase() || "ARYAMAN";
-  console.log("who", who);
+
   type config = {
     from: string;
     apiKey: string;
     domain: string;
   };
 
-  let mgConfig: config | null = null;
+  let mgConfig: config;
 
   switch (who) {
     case "ARYAMAN":
       {
         mgConfig = {
-          from: "Covaccinate Notification <notification@aryaman.covaccinate.tech>",
-          apiKey: keys.aryaman_apiKey,
-          domain: keys.aryaman_domain,
+          from:
+            "Covaccinate Notification <notification@aryaman.covaccinate.tech>",
+          apiKey: keys.API_KEY1,
+          domain: keys.DOMAIN1,
         };
       }
       break;
@@ -75,9 +74,21 @@ const main = async () => {
     case "ANIKET":
       {
         mgConfig = {
-          from: "Covaccinate Notification <notification@helper-a.covaccinate.tech>",
-          apiKey: keys.aniket_apiKey,
-          domain: keys.aniket_domain,
+          from:
+            "Covaccinate Notification <notification@helper-a.covaccinate.tech>",
+          apiKey: keys.API_KEY2,
+          domain: keys.DOMAIN2,
+        };
+      }
+      break;
+
+    case "SAURAV":
+      {
+        mgConfig = {
+          from:
+            "Covaccinate Notification <notification@saurav.covaccinate.tech>",
+          apiKey: keys.API_KEY3,
+          domain: keys.DOMAIN3,
         };
       }
       break;
@@ -85,9 +96,10 @@ const main = async () => {
     default:
       {
         mgConfig = {
-          from: "Covaccinate Notification <notification@aryaman.covaccinate.tech>",
-          apiKey: keys.aryaman_apiKey,
-          domain: keys.aryaman_domain,
+          from:
+            "Covaccinate Notification <notification@aryaman.covaccinate.tech>",
+          apiKey: keys.API_KEY1,
+          domain: keys.DOMAIN3,
         };
       }
       break;
@@ -100,11 +112,10 @@ const main = async () => {
     (msg) => {
       if (msg) {
         console.log("Received new message...");
-        // const obj = JSON.parse(msg.content.toString());
 
         mg.messages().send(
           {
-            from: mgConfig!.from,
+            from: mgConfig.from,
             to: "1761ary@gmail.com, aryamankumud@gmail.com",
             subject: "Vaccine slots available in your district.",
             text: msg.content.toString(),

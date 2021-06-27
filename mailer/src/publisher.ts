@@ -1,5 +1,6 @@
 import * as amqp from "amqplib";
 import * as axios from "axios";
+import keys from "./config";
 
 type ResponseData = { [key: string]: string }[];
 
@@ -45,9 +46,7 @@ const main = async () => {
   console.log("Trying to connect...");
 
   const connection = await amqp
-    .connect(
-      "amqps://lwoowmfz:tS7UsVg6_jI2Cn2NP52DCImMO1yj53KI@baboon.rmq.cloudamqp.com/lwoowmfz?heartbeat=30"
-    )
+    .connect(`${keys.RABBITMQ_CONNECTION}?heartbeat=30`)
     .then((conn) => conn)
     .catch((err: Error) => err.message);
 
@@ -83,7 +82,7 @@ const main = async () => {
 
   channel.assertQueue(queue, {
     // true in production
-    durable: false,
+    durable: true,
   });
 
   // Sending messages;
@@ -95,7 +94,7 @@ const main = async () => {
         const msg = JSON.stringify(data);
         channel.sendToQueue(queue, Buffer.from(msg), {
           // true in production
-          persistent: false,
+          persistent: true,
         });
       }
     });
