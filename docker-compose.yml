@@ -41,7 +41,7 @@ services:
     volumes:
       - static_volume:/home/app/web/staticfiles
       - ./nginx:/etc/nginx/conf.d
-      - /etc/letsencrypt/live/covaccinate.tech:/etc/nginx/certs
+      # - /etc/letsencrypt/live/covaccinate.tech:/etc/nginx/certs
     ports:
       - 80:80
       - 443:443
