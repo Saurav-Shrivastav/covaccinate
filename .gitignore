@@ -18,6 +18,7 @@ build/
 .env.test.local
 .env.production.local
 swenv.js
+django.log
 
 npm-debug.log*
 yarn-debug.log*

@@ -116,10 +116,10 @@ class FindSlotView(APIView):
                 break
             emails45 = User.objects.filter(
                 district_id=district["district_id"], age_category="45+"
-            ).values("email", "name")
+            ).values("email", "name", "id")
             emails1844 = User.objects.filter(
                 district_id=district["district_id"], age_category="18-44"
-            ).values("email", "name")
+            ).values("email", "name", "id")
             if eighteen or four5:
                 if eighteen and four5:
                     if emails1844.exists() and emails45.exists():
@@ -168,3 +168,9 @@ class FindSlotView(APIView):
                         )
 
         return Response(result)
+
+
+class Unsubscribe(APIView):
+    def get(self, request, id):
+        User.objects.filter(id=id).delete()
+        return Response("Unsubscribed Successfully!")
