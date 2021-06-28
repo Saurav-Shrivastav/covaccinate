@@ -28,7 +28,7 @@ const Nav: React.FC = () => {
         }}
       >
         <NavIcon src={syringe} alt="syringe" />
-        <h2 className="logo-text">Jab.Me</h2>
+        <h2 className="logo-text">Covaccinate</h2>
       </div>
       <div className="action-container">
         <Button

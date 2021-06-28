@@ -169,7 +169,7 @@ const RegisterCard: React.FC = () => {
       <Card>
         <div className="logo-row">
           <VaccineIcon src={syringe} alt="syringe" />
-          <h2 className="logo-text">Jab.Me</h2>
+          <h2 className="logo-text">Covaccinate</h2>
         </div>
         <h3 className="heading">Register</h3>
         <p className="description">

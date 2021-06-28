@@ -10,7 +10,12 @@ import { scraper } from "./scraper";
 
 const app = express();
 
-const whitelist = ["http://localhost:3000", "https://jabme.netlify.app"];
+const whitelist = [
+  "http://localhost:3000",
+  "https://jabme.netlify.app",
+  "https://covaccinate.tech",
+  "https://www.covaccinate.tech",
+];
 const corsOption = {
   origin: function (
     origin: string | undefined,
