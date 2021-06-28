@@ -51,3 +51,7 @@ mailer/src/config.ts
 # scraper
 scraper/functions/src/firebase-keys.json
 lib/
+
+# certs
+nginx/certificate.crt
+nginx/private.key

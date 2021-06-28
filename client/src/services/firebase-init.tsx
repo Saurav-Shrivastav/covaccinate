@@ -15,12 +15,22 @@ const config = {
 };
 
 firebase.initializeApp(config);
-const messaging = firebase.messaging();
+const messaging = firebase.messaging.isSupported()
+  ? firebase.messaging()
+  : null;
 
 export const getToken = (
   setTokenFound: React.Dispatch<React.SetStateAction<boolean>>,
   setToken: React.Dispatch<React.SetStateAction<string | null>>
-): Promise<void> => {
+): Promise<void> | null => {
+  if (!messaging) {
+    message.error({
+      content:
+        "Push Notification unsupported. Please switch to Chrome or Firefox Browser.",
+      duration: 2,
+    });
+    return null;
+  }
   return messaging
     .getToken({ vapidKey: process.env.REACT_APP_FIREBASE_VAPID_KEY })
     .then((currentToken) => {
@@ -49,7 +59,11 @@ export const getToken = (
 };
 
 export const onMessageListener = (): Promise<any> =>
-  new Promise((resolve) => {
+  new Promise((resolve, reject) => {
+    if (!messaging) {
+      reject("Browser Not Supported");
+      return;
+    }
     messaging.onMessage((payload) => {
       resolve(payload);
     });
