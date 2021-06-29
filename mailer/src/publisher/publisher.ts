@@ -1,46 +1,6 @@
 import * as amqp from "amqplib";
-import * as axios from "axios";
-import keys from "./config";
-
-type ResponseData = { [key: string]: string }[];
-
-const requestPromise = () => {
-  console.log("Trying to fetch...");
-
-  return axios.default
-    .get("https://fakerapi.it/api/v1/users?_quantity=1")
-    .then((res) => res.data.data as ResponseData)
-    .catch((err: Error) => {
-      console.error(err.message);
-      return null;
-    });
-};
-
-const fetch = async () => {
-  let responseData: ResponseData | null = null;
-  let retryCount = 3;
-  while (!responseData && retryCount > 0) {
-    responseData = await requestPromise();
-    retryCount--;
-  }
-
-  if (!responseData) {
-    return null;
-  }
-
-  const data = responseData.map((obj) => ({
-    ...obj,
-    email: undefined,
-  }));
-
-  const email = responseData.map((obj) => obj.email);
-
-  return {
-    date: new Date().toUTCString(),
-    data,
-    email,
-  };
-};
+import keys from "../config";
+import fetch from "./fetch";
 
 const main = async () => {
   console.log("Trying to connect...");
@@ -81,28 +41,29 @@ const main = async () => {
   const queue = "mailer";
 
   channel.assertQueue(queue, {
-    // true in production
     durable: true,
   });
 
-  // Sending messages;
   const timeout = setInterval(() => {
     fetch().then((data) => {
       if (!data) {
         console.log("No data fetched...");
       } else {
-        const msg = JSON.stringify(data);
-        channel.sendToQueue(queue, Buffer.from(msg), {
-          // true in production
-          persistent: true,
+        data.forEach((districtSlots) => {
+          const msg = JSON.stringify(districtSlots);
+
+          channel.sendToQueue(queue, Buffer.from(msg), {
+            persistent: true,
+          });
         });
       }
     });
-  }, 15 * 60 * 1000);
+  }, 15 * 60 * 1000); // 15 minutes
 
+  // Remove in production
   setTimeout(() => {
     clearInterval(timeout);
-  }, 1 * 60 * 60 * 1000);
+  }, 1 * 60 * 60 * 1000); // 1 hour
 };
 
 main();

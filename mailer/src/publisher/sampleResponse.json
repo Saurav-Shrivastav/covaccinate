@@ -1,0 +1,504 @@
+[
+  {
+    "district_id": "376",
+    "emails18-44": [
+      {
+        "email": "sshrivastav_be19@thapar.edu",
+        "name": "Saurav"
+      }
+    ],
+    "data18-44": [
+      {
+        "name": "SAHYADRI KARAD HOSPITALS PVT.",
+        "date": "29-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-04:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 45,
+        "address": "Third Floor Room No 305306 Karad Satara Highway",
+        "block_name": "Karad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      }
+    ]
+  },
+  {
+    "district_id": "367",
+    "emails18-44": [
+      {
+        "email": "saurav@gmail.com",
+        "name": "Saurav"
+      }
+    ],
+    "data18-44": [
+      {
+        "name": "Lakhanwada RH Campus",
+        "date": "29-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-06:00PM"
+        ],
+        "vaccine": "COVAXIN",
+        "availability": 1,
+        "address": "Lakhanwada RH CCP",
+        "block_name": "Khamgaon",
+        "fee_type": "Free",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Pimplegaon Devi PHC",
+        "date": "30-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-06:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 1,
+        "address": "Pimplegaon Devi CCP",
+        "block_name": "Motala",
+        "fee_type": "Free",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Dudha AWC Hatedi",
+        "date": "30-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-05:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 1,
+        "address": "Dudha AWC Hatedi",
+        "block_name": "Buldhana",
+        "fee_type": "Free",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Amdapur PHC Campus",
+        "date": "30-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-05:00PM"
+        ],
+        "vaccine": "COVAXIN",
+        "availability": 2,
+        "address": "Amdapur CCP",
+        "block_name": "Chikhli",
+        "fee_type": "Free",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Raigaon PHC",
+        "date": "30-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-05:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 1,
+        "address": "Raigaon",
+        "block_name": "Lonar",
+        "fee_type": "Free",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Deolgaon Raja RH Campus",
+        "date": "30-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-05:00PM"
+        ],
+        "vaccine": "COVAXIN",
+        "availability": 41,
+        "address": "Deolgaon Raja RH Campus",
+        "block_name": "Deolgaon Raja",
+        "fee_type": "Free",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Deolgaon Mahi RH Campus",
+        "date": "30-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-06:00PM"
+        ],
+        "vaccine": "COVAXIN",
+        "availability": 10,
+        "address": "Deolgaon Mahi RH",
+        "block_name": "Deolgaon Raja",
+        "fee_type": "Free",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Chandol PHC Session",
+        "date": "30-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-05:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 1,
+        "address": "Chandol CCP",
+        "block_name": "Buldhana",
+        "fee_type": "Free",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Chikhli RH Campus",
+        "date": "30-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-06:00PM"
+        ],
+        "vaccine": "COVAXIN",
+        "availability": 43,
+        "address": "Chikhli RH Campus",
+        "block_name": "Chikhli",
+        "fee_type": "Free",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Dhad RH",
+        "date": "30-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-06:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 28,
+        "address": "Dhad RH CCP",
+        "block_name": "Buldhana",
+        "fee_type": "Free",
+        "min_age_limit": 18
+      }
+    ]
+  },
+  {
+    "district_id": "199",
+    "emails18-44": [
+      {
+        "email": "aniket.biswas75@gmail.com",
+        "name": "Aniket Biswas"
+      },
+      {
+        "email": "1761ary@gmail.com",
+        "name": "Aryaman"
+      }
+    ],
+    "data18-44": [
+      {
+        "name": "Metro Hospital",
+        "date": "29-06-2021",
+        "slots": [
+          "10:00AM-11:00AM",
+          "11:00AM-12:00PM",
+          "12:00PM-01:00PM",
+          "01:00PM-04:30PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 144,
+        "address": "Sector 16A Faridabad",
+        "block_name": "Faridabad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Sarvodaya Hospital Sector 8",
+        "date": "29-06-2021",
+        "slots": [
+          "09:30AM-11:30AM",
+          "11:30AM-01:30PM",
+          "01:30PM-03:30PM",
+          "03:30PM-04:30PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 413,
+        "address": "Sector 8 YMCA Rd Near Escorts Mujesar Metro Station Faridabad",
+        "block_name": "Faridabad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Sarvodaya Hospital Sector 8",
+        "date": "30-06-2021",
+        "slots": [
+          "09:30AM-11:30AM",
+          "11:30AM-01:30PM",
+          "01:30PM-03:30PM",
+          "03:30PM-04:30PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 418,
+        "address": "Sector 8 YMCA Rd Near Escorts Mujesar Metro Station Faridabad",
+        "block_name": "Faridabad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "ASIAN INSTITUTE OF MEDICAL",
+        "date": "29-06-2021",
+        "slots": [
+          "10:00AM-11:00AM",
+          "11:00AM-12:00PM",
+          "12:00PM-01:00PM",
+          "01:00PM-03:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 23,
+        "address": "BADKAL FLYOVER SECTOR 21 A FARIDABAD",
+        "block_name": "Faridabad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "ASIAN INSTITUTE OF MEDICAL",
+        "date": "30-06-2021",
+        "slots": [
+          "10:00AM-11:00AM",
+          "11:00AM-12:00PM",
+          "12:00PM-01:00PM",
+          "01:00PM-03:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 12,
+        "address": "BADKAL FLYOVER SECTOR 21 A FARIDABAD",
+        "block_name": "Faridabad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Sarvodya Hospital Sec 19",
+        "date": "29-06-2021",
+        "slots": [
+          "10:00AM-11:00AM",
+          "11:00AM-12:00PM",
+          "12:00PM-01:00PM",
+          "01:00PM-04:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 210,
+        "address": "Sarvodya Sec 19",
+        "block_name": "Faridabad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Fortis Escorts Hospital",
+        "date": "29-06-2021",
+        "slots": ["04:00PM-06:00PM"],
+        "vaccine": "COVAXIN",
+        "availability": 2,
+        "address": "Fortis Escorts Near By Neelam Bata Road Faridabad",
+        "block_name": "Faridabad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Fortis Escorts Hospital",
+        "date": "30-06-2021",
+        "slots": ["04:00PM-06:00PM"],
+        "vaccine": "COVAXIN",
+        "availability": 9,
+        "address": "Fortis Escorts Near By Neelam Bata Road Faridabad",
+        "block_name": "Faridabad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "SHANKAR MEDICARE CENTER",
+        "date": "29-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-06:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 35,
+        "address": "3-184 LINK ROAD SECTOR 28",
+        "block_name": "Faridabad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Arsh Hospital",
+        "date": "29-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-06:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 34,
+        "address": "Opp. Era Redwood Residency Tigaon Rd Sector 78 Faridabad",
+        "block_name": "Faridabad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "QRG MEDICARE LTD",
+        "date": "29-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-04:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 100,
+        "address": "SECTOR 16 FARIDABAD",
+        "block_name": "Faridabad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "QRG MEDICARE LTD",
+        "date": "30-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-04:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 99,
+        "address": "SECTOR 16 FARIDABAD",
+        "block_name": "Faridabad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "QRG MEDICARE LTD",
+        "date": "01-07-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-04:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 98,
+        "address": "SECTOR 16 FARIDABAD",
+        "block_name": "Faridabad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Shanti Devi Memorial Hospital",
+        "date": "30-06-2021",
+        "slots": [
+          "09:00AM-10:00AM",
+          "10:00AM-11:00AM",
+          "11:00AM-12:00PM",
+          "12:00PM-02:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 36,
+        "address": "Kheri More Near Piyush Heights Sector 89 Faridabad",
+        "block_name": "Kheri Kalan",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Shanti Devi Memorial Hospital",
+        "date": "01-07-2021",
+        "slots": [
+          "09:00AM-10:00AM",
+          "10:00AM-11:00AM",
+          "11:00AM-12:00PM",
+          "12:00PM-02:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 36,
+        "address": "Kheri More Near Piyush Heights Sector 89 Faridabad",
+        "block_name": "Kheri Kalan",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Shanti Devi Memorial Hospital",
+        "date": "02-07-2021",
+        "slots": [
+          "09:00AM-10:00AM",
+          "10:00AM-11:00AM",
+          "11:00AM-12:00PM",
+          "12:00PM-02:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 48,
+        "address": "Kheri More Near Piyush Heights Sector 89 Faridabad",
+        "block_name": "Kheri Kalan",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Shanti Devi Memorial Hospital",
+        "date": "03-07-2021",
+        "slots": [
+          "09:00AM-10:00AM",
+          "10:00AM-11:00AM",
+          "11:00AM-12:00PM",
+          "12:00PM-02:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 94,
+        "address": "Kheri More Near Piyush Heights Sector 89 Faridabad",
+        "block_name": "Kheri Kalan",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "Santosh Hospital NIT 3",
+        "date": "30-06-2021",
+        "slots": ["11:00AM-01:00PM", "01:00PM-02:00PM"],
+        "vaccine": "COVISHIELD",
+        "availability": 13,
+        "address": "Shop No. 3F139 Metro Rd New Industrial Twp 3 New Industrial Town Faridabad",
+        "block_name": "Faridabad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      },
+      {
+        "name": "National Institute Of Medical",
+        "date": "30-06-2021",
+        "slots": [
+          "09:00AM-11:00AM",
+          "11:00AM-01:00PM",
+          "01:00PM-03:00PM",
+          "03:00PM-06:00PM"
+        ],
+        "vaccine": "COVISHIELD",
+        "availability": 6,
+        "address": "Mcf Residential Scheme Sector 23 Faridabad",
+        "block_name": "Faridabad",
+        "fee_type": "Paid",
+        "min_age_limit": 18
+      }
+    ]
+  }
+]
