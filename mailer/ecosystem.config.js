@@ -4,7 +4,7 @@ module.exports = {
   apps: [
     {
       name: "publisher",
-      script: "./lib/publisher.js",
+      script: "./lib/publisher/publisher.js",
       min_uptime: 5000,
       max_restarts: 5,
     },

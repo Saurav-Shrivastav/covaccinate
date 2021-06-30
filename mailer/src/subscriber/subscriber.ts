@@ -51,7 +51,7 @@ const main = async () => {
     queue,
     (msg) => {
       if (msg) {
-        console.log("Received new message...");
+        console.log(`Received new message by ${process.env.WHO} ...`);
         sendEmails(msg)
           .then(() => {
             console.log("Mails sent");
