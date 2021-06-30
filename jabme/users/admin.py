@@ -44,6 +44,7 @@ class CustomUserAdmin(UserAdmin):
                     "district_id",
                     "age_category",
                     "fcm_token",
+                    "email_send_time",
                 )
             },
         ),

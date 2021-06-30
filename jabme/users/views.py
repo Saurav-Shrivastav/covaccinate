@@ -1,6 +1,7 @@
 import json
 import re
-from datetime import date
+import threading
+from datetime import date, datetime, timedelta
 
 import requests
 from django.contrib.auth import get_user_model
@@ -8,6 +9,8 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models.functions import Now
+from django.utils import timezone
 from fake_useragent import UserAgent
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -20,6 +23,12 @@ def validate_pincode(pin):
     reg = re.compile(PINCODE_REGEX)
     if not reg.match(pin):
         raise ValidationError("Enter correct pincode")
+
+
+def update_email_sent_time(objs):
+    now = Now()
+    for obj in objs:
+        obj.update(email_send_time=now)
 
 
 class RegisterView(APIView):
@@ -114,12 +123,19 @@ class FindSlotView(APIView):
                             )
             else:
                 break
+            time_threshold = datetime.now(timezone.utc) - timedelta(hours=6)
             emails45 = User.objects.filter(
-                district_id=district["district_id"], age_category="45+"
+                district_id=district["district_id"],
+                age_category="45+",
+                email_send_time__lt=time_threshold,
             ).values("email", "name")
             emails1844 = User.objects.filter(
-                district_id=district["district_id"], age_category="18-44"
+                district_id=district["district_id"],
+                age_category="18-44",
+                email_send_time__lt=time_threshold,
             ).values("email", "name")
+            bool45 = False
+            bool18 = False
             if eighteen or four5:
                 if eighteen and four5:
                     if emails1844.exists() and emails45.exists():
@@ -132,6 +148,7 @@ class FindSlotView(APIView):
                                 "data18-44": eighteen,
                             }
                         )
+                        bool18 = bool45 = True
                     elif emails1844.exists() and not emails45.exists():
                         result.append(
                             {
@@ -140,6 +157,7 @@ class FindSlotView(APIView):
                                 "data18-44": eighteen,
                             }
                         )
+                        bool18 = True
                     elif emails45.exists() and not emails1844.exists():
                         result.append(
                             {
@@ -148,6 +166,7 @@ class FindSlotView(APIView):
                                 "data45+": four5,
                             }
                         )
+                        bool45 = True
                 elif eighteen and not four5:
                     if emails1844.exists():
                         result.append(
@@ -157,6 +176,7 @@ class FindSlotView(APIView):
                                 "data18-44": eighteen,
                             }
                         )
+                        bool18 = True
                 elif four5 and not eighteen:
                     if emails45.exists():
                         result.append(
@@ -166,5 +186,14 @@ class FindSlotView(APIView):
                                 "data45+": four5,
                             }
                         )
+                        bool18 = True
 
+            update_list = []
+            if bool18:
+                update_list.append(emails1844)
+            if bool45:
+                update_list.append(emails45)
+            threading.Thread(
+                target=update_email_sent_time, args=(update_list,)
+            ).start()
         return Response(result)

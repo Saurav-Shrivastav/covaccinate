@@ -38,6 +38,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField("Name", max_length=20)
     dateJoined = models.DateTimeField(default=timezone.now)
     fcm_token = models.CharField(max_length=255, blank=True, null=True)
+    email_send_time = models.DateTimeField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
