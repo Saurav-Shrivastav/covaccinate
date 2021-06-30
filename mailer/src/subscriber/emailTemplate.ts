@@ -15,7 +15,14 @@ const ejsTemplate = `
     >
       <thead>
         <tr>
-          <th style="border: 1px solid black; text-align: center; padding: 5px">
+          <th 
+            style="
+              border: 1px solid black; 
+              text-align: center; 
+              padding: 5px;
+              background-color: lightgray;
+            "
+          >
             S.No.
           </th>
           <th
@@ -28,7 +35,14 @@ const ejsTemplate = `
           >
             Name
           </th>
-          <th style="border: 1px solid black; text-align: center; padding: 5px">
+          <th 
+            style="
+              border: 1px solid black; 
+              text-align: center; 
+              padding: 5px;
+              background-color: lightgray;
+            "
+          >
             Date
           </th>
           <th
@@ -41,7 +55,14 @@ const ejsTemplate = `
           >
             Slots
           </th>
-          <th style="border: 1px solid black; text-align: center; padding: 5px">
+          <th 
+            style="
+              border: 1px solid black; 
+              text-align: center; 
+              padding: 5px;
+              background-color: lightgray;
+            "
+          >
             Vaccine
           </th>
           <th
@@ -54,7 +75,14 @@ const ejsTemplate = `
           >
             Availability
           </th>
-          <th style="border: 1px solid black; text-align: center; padding: 5px">
+          <th 
+            style="
+              border: 1px solid black; 
+              text-align: center; 
+              padding: 5px;
+              background-color: lightgray;
+            "
+          >
             Address
           </th>
           <th
@@ -67,7 +95,14 @@ const ejsTemplate = `
           >
             Block Name
           </th>
-          <th style="border: 1px solid black; text-align: center; padding: 5px">
+          <th 
+            style="
+              border: 1px solid black; 
+              text-align: center; 
+              padding: 5px;
+              background-color: lightgray;
+            "
+          >
             Fee Type
           </th>
           <th
@@ -90,7 +125,6 @@ const ejsTemplate = `
                 border: 1px solid black;
                 text-align: center;
                 padding: 5px;
-                background-color: lightgray;
               " 
               rowspan=<%= hospital.slots.length %> > 
               <%= index + 1 %> 
@@ -109,7 +143,6 @@ const ejsTemplate = `
                 border: 1px solid black;
                 text-align: center;
                 padding: 5px;
-                background-color: lightgray;
               " 
               rowspan=<%= hospital.slots.length %> > 
               <%= hospital.date %> 
@@ -128,7 +161,6 @@ const ejsTemplate = `
                 border: 1px solid black;
                 text-align: center;
                 padding: 5px;
-                background-color: lightgray;
               " 
               rowspan=<%= hospital.slots.length %> > 
               <%= hospital.vaccine %> 
@@ -147,7 +179,6 @@ const ejsTemplate = `
                 border: 1px solid black;
                 text-align: center;
                 padding: 5px;
-                background-color: lightgray;
               " 
               rowspan=<%= hospital.slots.length %> > 
               <%= hospital.address %> 
@@ -166,7 +197,6 @@ const ejsTemplate = `
                 border: 1px solid black;
                 text-align: center;
                 padding: 5px;
-                background-color: lightgray;
               " 
               rowspan=<%= hospital.slots.length %> > 
               <%= hospital.fee_type %> 
