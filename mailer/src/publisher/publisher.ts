@@ -11,7 +11,7 @@ const main = async () => {
     .catch((err: Error) => err.message);
 
   if (typeof connection === "string") {
-    console.log("Connection failed...");
+    console.log("Connection failed...", connection);
     process.exit(1);
   }
 
@@ -52,6 +52,7 @@ const main = async () => {
         data.forEach((districtSlots) => {
           const msg = JSON.stringify(districtSlots);
 
+          console.log("Pushing to queue...");
           channel.sendToQueue(queue, Buffer.from(msg), {
             persistent: true,
           });
