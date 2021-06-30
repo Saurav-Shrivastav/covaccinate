@@ -44,7 +44,7 @@ const main = async () => {
     durable: true,
   });
 
-  const timeout = setInterval(() => {
+  setInterval(() => {
     fetch().then((data) => {
       if (!data) {
         console.log("No data fetched...");
@@ -59,11 +59,6 @@ const main = async () => {
         });
       }
     });
-  }, 15 * 60 * 1000); // 15 minutes
-
-  // Remove in production
-  setTimeout(() => {
-    clearInterval(timeout);
   }, 1 * 60 * 60 * 1000); // 1 hour
 };
 
