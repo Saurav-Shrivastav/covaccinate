@@ -9,6 +9,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Q
 from django.db.models.functions import Now
 from django.utils import timezone
 from fake_useragent import UserAgent
@@ -125,14 +126,16 @@ class FindSlotView(APIView):
                 break
             time_threshold = datetime.now(timezone.utc) - timedelta(hours=6)
             emails45 = User.objects.filter(
-                district_id=district["district_id"],
-                age_category="45+",
-                email_send_time__lt=time_threshold,
-            ).values("email", "name")
-            emails1844 = User.objects.filter(
+                Q(email_send_time__lt=time_threshold)
+                | Q(email_send_time__isnull=True),
                 district_id=district["district_id"],
                 age_category="18-44",
-                email_send_time__lt=time_threshold,
+            ).values("email", "name")
+            emails1844 = User.objects.filter(
+                Q(email_send_time__lt=time_threshold)
+                | Q(email_send_time__isnull=True),
+                district_id=district["district_id"],
+                age_category="18-44",
             ).values("email", "name")
             bool45 = False
             bool18 = False
