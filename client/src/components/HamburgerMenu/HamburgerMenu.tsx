@@ -4,6 +4,7 @@ import {
   BookOutlined,
   ExportOutlined,
   FileSearchOutlined,
+  GithubOutlined,
   NotificationOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
@@ -58,6 +59,15 @@ const HamburgerMenu: React.FC = () => {
           }}
         >
           Open CoWin
+        </Menu.Item>
+        <Menu.Item
+          key="5"
+          icon={<GithubOutlined />}
+          onClick={() => {
+            window.open("https://github.com/Saurav-Shrivastav/covaccinate");
+          }}
+        >
+          Star us on Github
         </Menu.Item>
       </Menu>
     </MenuWrapper>
