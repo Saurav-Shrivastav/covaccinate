@@ -25,6 +25,7 @@ import {
   StyledFormItem,
   Header,
 } from "./RegisterCard.styles";
+import { GithubIcon } from "../Nav/Nav.styles";
 import syringe from "../../assets/syringe.png";
 import { FcmTokenContext } from "context/FcmTokenContext";
 import Modal from "antd/lib/modal/Modal";
@@ -165,6 +166,11 @@ const RegisterCard: React.FC = () => {
         >
           Check Vaccine Availablity
         </Button>
+        <GithubIcon
+          onClick={() => {
+            window.open("https://github.com/Saurav-Shrivastav/covaccinate");
+          }}
+        />
       </Header>
       <Card>
         <div className="logo-row">

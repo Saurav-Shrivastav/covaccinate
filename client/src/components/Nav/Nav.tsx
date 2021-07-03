@@ -5,7 +5,7 @@ import { HamburgerContext } from "context/HamburgerContext";
 import { MenuOutlined } from "@ant-design/icons";
 import HamburgerMenu from "components/HamburgerMenu/HamburgerMenu";
 
-import { NavContainer, NavIcon } from "./Nav.styles";
+import { GithubIcon, NavContainer, NavIcon } from "./Nav.styles";
 import syringe from "../../assets/syringe.png";
 
 const Nav: React.FC = () => {
@@ -49,6 +49,12 @@ const Nav: React.FC = () => {
         >
           Register for alerts
         </Button>
+        <GithubIcon
+          onClick={() => {
+            window.open("https://github.com/Saurav-Shrivastav/covaccinate");
+          }}
+          isOnNav
+        />
       </div>
       <HamburgerMenu />
     </NavContainer>
