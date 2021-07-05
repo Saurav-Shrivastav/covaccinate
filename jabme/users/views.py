@@ -15,6 +15,7 @@ from django.utils import timezone
 from fake_useragent import UserAgent
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from users.models import District
 
 PINCODE_REGEX = "^[1-9][0-9]{5}$"
 User = get_user_model()
@@ -52,8 +53,16 @@ class RegisterView(APIView):
                 user.email = data["email"]
                 user.name = data["name"]
                 user.pincode = data["pincode"]
-                user.district = data["district"]
-                user.district_id = data["district_id"]
+                try:
+                    dist = District.objects.get(
+                        district_id=data["district_id"]
+                    )
+                except Exception:
+                    dist = District.objects.create(
+                        district_id=data["district_id"],
+                        district=data["district"],
+                    )
+                user.district = dist
                 user.age_category = data["category"]
                 if "fcm_token" in data:
                     user.fcm_token = data["fcm_token"]
@@ -66,8 +75,12 @@ class RegisterView(APIView):
 
 class FindSlotView(APIView):
     def get(self, request):
+        time_threshold = datetime.now(timezone.utc) - timedelta(hours=6)
         district_ids = (
-            User.objects.filter()
+            District.objects.filter(
+                Q(email_send_time__lt=time_threshold)
+                | Q(email_send_time__isnull=True),
+            )
             .values("district_id")
             .annotate(n=models.Count("pk"))
         )
@@ -79,7 +92,14 @@ class FindSlotView(APIView):
             eighteen = []
             headers = {"User-Agent": user_agent.random}
             url = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id={district['district_id']}&date={today}"
-            r = requests.get(url, headers=headers).text
+            try:
+                r = requests.get(url, headers=headers).text
+            except Exception:
+                print(
+                    "Exception Occurred while fetching: ",
+                    district["district_id"],
+                )
+                continue
             r = json.loads(r)
             if "centers" in r:
                 for center in r["centers"]:
@@ -124,21 +144,14 @@ class FindSlotView(APIView):
                             )
             else:
                 break
-            time_threshold = datetime.now(timezone.utc) - timedelta(hours=6)
             emails45 = User.objects.filter(
-                Q(email_send_time__lt=time_threshold)
-                | Q(email_send_time__isnull=True),
-                district_id=district["district_id"],
-                age_category="18-44",
+                district__district_id=district["district_id"],
+                age_category="45+",
             ).values("email", "name")
             emails1844 = User.objects.filter(
-                Q(email_send_time__lt=time_threshold)
-                | Q(email_send_time__isnull=True),
-                district_id=district["district_id"],
+                district__district_id=district["district_id"],
                 age_category="18-44",
             ).values("email", "name")
-            bool45 = False
-            bool18 = False
             if eighteen or four5:
                 if eighteen and four5:
                     if emails1844.exists() and emails45.exists():
@@ -151,7 +164,6 @@ class FindSlotView(APIView):
                                 "data18-44": eighteen,
                             }
                         )
-                        bool18 = bool45 = True
                     elif emails1844.exists() and not emails45.exists():
                         result.append(
                             {
@@ -160,7 +172,6 @@ class FindSlotView(APIView):
                                 "data18-44": eighteen,
                             }
                         )
-                        bool18 = True
                     elif emails45.exists() and not emails1844.exists():
                         result.append(
                             {
@@ -169,7 +180,6 @@ class FindSlotView(APIView):
                                 "data45+": four5,
                             }
                         )
-                        bool45 = True
                 elif eighteen and not four5:
                     if emails1844.exists():
                         result.append(
@@ -179,7 +189,6 @@ class FindSlotView(APIView):
                                 "data18-44": eighteen,
                             }
                         )
-                        bool18 = True
                 elif four5 and not eighteen:
                     if emails45.exists():
                         result.append(
@@ -189,14 +198,5 @@ class FindSlotView(APIView):
                                 "data45+": four5,
                             }
                         )
-                        bool18 = True
 
-            update_list = []
-            if bool18:
-                update_list.append(emails1844)
-            if bool45:
-                update_list.append(emails45)
-            threading.Thread(
-                target=update_email_sent_time, args=(update_list,)
-            ).start()
         return Response(result)
