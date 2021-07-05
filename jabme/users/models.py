@@ -11,6 +11,21 @@ from users.managers import UserManager
 PINCODE_REGEX = "^[1-9][0-9]{5}$"
 
 
+class District(models.Model):
+    """
+    A model that lists the districts and their last email sent times
+    """
+
+    district = models.CharField(max_length=150)
+    district_id = models.CharField(
+        primary_key=True, editable=False, max_length=5
+    )
+    email_send_time = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.district} - {self.district_id}"
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     """
     Custom User model.
@@ -32,13 +47,13 @@ class User(AbstractBaseUser, PermissionsMixin):
             )
         ],
     )
-    district = models.CharField(max_length=150)
-    district_id = models.CharField(max_length=5)
+    district = models.ForeignKey(
+        District, on_delete=models.CASCADE, blank=True, null=True
+    )
     age_category = models.CharField(max_length=5, choices=AGE_CHOICES)
     name = models.CharField("Name", max_length=20)
     dateJoined = models.DateTimeField(default=timezone.now)
     fcm_token = models.CharField(max_length=255, blank=True, null=True)
-    email_send_time = models.DateTimeField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -46,8 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = [
         "name",
         "pincode",
-        "district",
-        "district_id",
+        # "district",
         "age_category",
     ]
 
