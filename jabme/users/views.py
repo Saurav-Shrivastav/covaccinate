@@ -27,12 +27,6 @@ def validate_pincode(pin):
         raise ValidationError("Enter correct pincode")
 
 
-def update_email_sent_time(objs):
-    now = Now()
-    for obj in objs:
-        obj.update(email_send_time=now)
-
-
 class RegisterView(APIView):
     def post(self, request):
         data = request.data
@@ -200,3 +194,16 @@ class FindSlotView(APIView):
                         )
 
         return Response(result)
+
+
+class UpdateEmailSentTime(APIView):
+    def post(self, request):
+        now = Now()
+        for dist in request.data["district_ids"]:
+            try:
+                District.objects.filter(district_id=dist).update(
+                    email_send_time=now
+                )
+            except Exception:
+                print("Time could not be updated for ", dist, Exception)
+        return Response("Done hehe.")
