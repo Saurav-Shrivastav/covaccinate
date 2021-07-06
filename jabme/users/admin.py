@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from users.forms import CustomUserChangeForm, CustomUserCreationForm
-from users.models import User
+from users.models import District, User
 
 
 class CustomUserAdmin(UserAdmin):
@@ -41,10 +41,8 @@ class CustomUserAdmin(UserAdmin):
                 "fields": (
                     "pincode",
                     "district",
-                    "district_id",
                     "age_category",
                     "fcm_token",
-                    "email_send_time",
                 )
             },
         ),
@@ -72,4 +70,5 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(User, CustomUserAdmin)
+admin.site.register(District)
 admin.site.unregister(Group)
