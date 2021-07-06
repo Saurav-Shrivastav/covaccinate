@@ -120,11 +120,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 PASSWORD_RESET_TIMEOUT_DAYS = 1
 
 ANYMAIL = {
-    "MAILGUN_API_KEY": "d00ebd4df317c6e673cf51c69d94d493-6ae2ecad-5a9da310",
-    "MAILGUN_SENDER_DOMAIN": "saurav.covaccinate.tech",  # your Mailgun domain, if needed
+    "MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY"),
+    "MAILGUN_SENDER_DOMAIN": os.environ.get("MAILGUN_SENDER_DOMAIN"),
 }
-EMAIL_BACKEND = (
-    "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
-)
-DEFAULT_FROM_EMAIL = "notification@saurav.covaccinate.tech"  # if you don't already have this in settings
-SERVER_EMAIL = "notification@saurav.covaccinate.tech"  # ditto (default from-email for Django errors)
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+DEFAULT_FROM_EMAIL = os.environ.get("MAILGUN_FROM_EMAIL")
+SERVER_EMAIL = os.environ.get("MAILGUN_FROM_EMAIL")
