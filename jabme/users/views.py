@@ -14,6 +14,7 @@ from django.core.mail import send_mail
 from django.db import models
 from django.db.models import Q
 from django.db.models.functions import Now
+from django.shortcuts import render
 from django.template import Context, loader
 from django.utils import timezone
 from fake_useragent import UserAgent
@@ -214,7 +215,7 @@ class UpdateEmailSentTime(APIView):
 
 
 class SubscriptionDeleteTokenGenerator(PasswordResetTokenGenerator):
-    def _make_hash_value(self, user):
+    def _make_hash_value(self, user, timestamp):
         return (
             six.text_type(user.pk)
             + six.text_type(user.pincode)
@@ -232,7 +233,7 @@ class SubscriptionDeleteRequestView(APIView):
         except User.DoesNotExist:
             return Response("User does not exist for this email.")
 
-        token = subscription_delete_token._make_hash_value(user)
+        token = subscription_delete_token.make_token(user)
         url = request.build_absolute_uri() + str(user.pk) + "/" + token + "/"
         message = loader.get_template("mail-message.txt").render(
             {"name": user.name, "url": url}
@@ -244,3 +245,21 @@ class SubscriptionDeleteRequestView(APIView):
             [user.email],
         )
         return Response("Please check your email to confirm.")
+
+
+class SubscriptionDeleteView(APIView):
+    def get(self, request, uuid, token):
+        try:
+            user = User.objects.get(pk=uuid)
+        except User.DoesNotExist:
+            user = None
+
+        print(subscription_delete_token.check_token(user, token))
+
+        if user is not None and subscription_delete_token.check_token(
+            user, token
+        ):
+            user.delete()
+            return render(request, "unsubscribed.html")
+        else:
+            return render(request, "unsubscribe_invalid.html")

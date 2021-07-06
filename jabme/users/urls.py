@@ -14,4 +14,9 @@ urlpatterns = [
         views.SubscriptionDeleteRequestView.as_view(),
         name="unsubscribe",
     ),
+    path(
+        "unsubscribe/<uuid>/<token>/",
+        views.SubscriptionDeleteView.as_view(),
+        name="unsubscribe",
+    ),
 ]

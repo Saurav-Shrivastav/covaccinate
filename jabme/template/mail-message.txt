@@ -1,6 +1,6 @@
 Hello {{name}},
 
-We received an unsubscribe request for your account. Click on the following link to confirm:
+We received an unsubscribe request for your account. The link is valid for 24 hours only. Click on the following link to confirm:
 {{ url }}
 You can re-register anytime at https://covaccinate.tech/.
 
