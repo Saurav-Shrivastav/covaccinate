@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
+    "anymail",
     "rest_framework",
     "users",
 ]
@@ -37,7 +38,9 @@ ROOT_URLCONF = "app.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            "template",
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -114,3 +117,14 @@ STATIC_URL = "/staticfiles/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+PASSWORD_RESET_TIMEOUT_DAYS = 1
+
+ANYMAIL = {
+    "MAILGUN_API_KEY": "d00ebd4df317c6e673cf51c69d94d493-6ae2ecad-5a9da310",
+    "MAILGUN_SENDER_DOMAIN": "saurav.covaccinate.tech",  # your Mailgun domain, if needed
+}
+EMAIL_BACKEND = (
+    "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+)
+DEFAULT_FROM_EMAIL = "notification@saurav.covaccinate.tech"  # if you don't already have this in settings
+SERVER_EMAIL = "notification@saurav.covaccinate.tech"  # ditto (default from-email for Django errors)

@@ -1,0 +1,10 @@
+Hello {{name}},
+
+We received an unsubscribe request for your account. Click on the following link to confirm:
+{{ url }}
+You can re-register anytime at https://covaccinate.tech/.
+
+Please ignore this email, if the request was not made by you.
+
+Regards,
+Covaccinate Team.

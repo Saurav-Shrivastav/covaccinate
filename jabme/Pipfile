@@ -18,6 +18,8 @@ requests = "*"
 simplejson = "*"
 fake-useragent = "*"
 django-cors-headers = "*"
+six = "*"
+django-anymail = "*"
 
 [requires]
 python_version = "3.8"

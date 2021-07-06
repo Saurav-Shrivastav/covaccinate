@@ -4,13 +4,17 @@ import threading
 from datetime import date, datetime, timedelta
 
 import requests
+import six
 from django.contrib.auth import get_user_model
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
 from django.db import models
 from django.db.models import Q
 from django.db.models.functions import Now
+from django.template import Context, loader
 from django.utils import timezone
 from fake_useragent import UserAgent
 from rest_framework.response import Response
@@ -207,3 +211,36 @@ class UpdateEmailSentTime(APIView):
             except Exception:
                 print("Time could not be updated for ", dist, Exception)
         return Response("Done hehe.")
+
+
+class SubscriptionDeleteTokenGenerator(PasswordResetTokenGenerator):
+    def _make_hash_value(self, user):
+        return (
+            six.text_type(user.pk)
+            + six.text_type(user.pincode)
+            + six.text_type(user.password)
+        )
+
+
+subscription_delete_token = SubscriptionDeleteTokenGenerator()
+
+
+class SubscriptionDeleteRequestView(APIView):
+    def post(self, request):
+        try:
+            user = User.objects.get(email=request.data["email"])
+        except User.DoesNotExist:
+            return Response("User does not exist for this email.")
+
+        token = subscription_delete_token._make_hash_value(user)
+        url = request.build_absolute_uri() + str(user.pk) + "/" + token + "/"
+        message = loader.get_template("mail-message.txt").render(
+            {"name": user.name, "url": url}
+        )
+        send_mail(
+            "Unsubscribe Request!",
+            message,
+            "Covaccinate Support <notification@saurav.covaccinate.tech>",
+            [user.email],
+        )
+        return Response("Please check your email to confirm.")
