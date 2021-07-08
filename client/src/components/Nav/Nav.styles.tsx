@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { VaccineIcon } from "components/RegisterCard/RegisterCard.styles";
-import { md, xs } from "theme/breakpoints";
+import { md, mdxl, xs } from "theme/breakpoints";
+import { GithubOutlined } from "@ant-design/icons";
+
+interface GithubIconProps {
+  isOnNav?: boolean;
+}
 
 export const NavContainer = styled.div`
   display: flex;
@@ -70,4 +75,15 @@ export const NavContainer = styled.div`
 export const NavIcon = styled(VaccineIcon)`
   height: 2.6rem;
   margin: auto;
+`;
+
+export const GithubIcon = styled(GithubOutlined)<GithubIconProps>`
+  margin: auto 1rem;
+  cursor: pointer;
+  svg {
+    font-size: 1.6rem;
+  }
+  ${mdxl} {
+    display: ${({ isOnNav }) => !isOnNav && "none"};
+  }
 `;
