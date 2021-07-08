@@ -1,6 +1,9 @@
 import * as amqp from "amqplib";
 import keys from "../config";
 import sendEmails from "./mailgun";
+import setLastSent from "./setLastSent";
+
+import ResponseData from "../publisher/fetch.types";
 
 const main = async () => {
   console.log("Trying to connect...");
@@ -49,15 +52,24 @@ const main = async () => {
 
   channel.consume(
     queue,
-    (msg) => {
+    async (msg) => {
       if (msg) {
-        console.log(`Received new message by ${process.env.WHO} ...`);
-        sendEmails(msg)
-          .then(() => {
-            console.log("Mails sent");
-            channel.ack(msg);
-          })
-          .catch((err) => console.error(err));
+        try {
+          console.log(`Received new message by ${process.env.WHO} ...`);
+
+          await sendEmails(msg);
+
+          const msgJSON: ResponseData = JSON.parse(msg.content.toString());
+          console.log(`Mails sent to district_id ${msgJSON.district_id}`);
+
+          channel.ack(msg);
+
+          await setLastSent(msgJSON.district_id);
+          console.log(`Updated lastSent of district_id ${msgJSON.district_id}`);
+        } catch (error) {
+          console.error(error);
+          channel.nack(msg, false, true);
+        }
       }
     },
     {
