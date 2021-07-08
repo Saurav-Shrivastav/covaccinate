@@ -69,6 +69,7 @@ const main = async () => {
         } catch (error) {
           console.error(error);
           channel.nack(msg, false, true);
+          console.log("Message requeued...");
         }
       }
     },
