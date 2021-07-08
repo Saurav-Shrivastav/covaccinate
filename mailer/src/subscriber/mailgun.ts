@@ -1,8 +1,10 @@
 import mailgun from "mailgun-js";
 import keys from "../config";
+import makeEmail from "./makeEmail";
+
 import { ConsumeMessage } from "amqplib";
 import ResponseData from "../publisher/fetch.types";
-import makeEmail from "./makeEmail";
+import { SendEmailItem } from "./mailgun.types";
 
 const who = process.env.WHO?.trim().toUpperCase() || "ARYAMAN";
 
@@ -63,15 +65,42 @@ const mg = mailgun({ apiKey: mgConfig.apiKey, domain: mgConfig.domain });
 
 const sendEmails = (msg: ConsumeMessage) => {
   const districtSlots: ResponseData = JSON.parse(msg.content.toString());
-  const emails = districtSlots["emails18-44"].map((emailObj) => emailObj.email);
-  const emailBody = makeEmail(districtSlots["data18-44"]);
+  const sendEmailsArr: SendEmailItem[] = [];
 
-  return mg.messages().send({
-    from: mgConfig.from,
-    to: emails,
-    subject: "Vaccine slots are available near you.",
-    html: emailBody,
-  });
+  if (
+    districtSlots["emails18-44"] &&
+    districtSlots["emails18-44"].length >= 1 &&
+    districtSlots["data18-44"] &&
+    districtSlots["data18-44"].length >= 1
+  ) {
+    sendEmailsArr.push({
+      emails: districtSlots["emails18-44"].map((item) => item.email),
+      emailBody: makeEmail(districtSlots["data18-44"]),
+    });
+  }
+
+  if (
+    districtSlots["emails45+"] &&
+    districtSlots["emails45+"].length >= 1 &&
+    districtSlots["data45+"] &&
+    districtSlots["data45+"].length >= 1
+  ) {
+    sendEmailsArr.push({
+      emails: districtSlots["emails45+"].map((item) => item.email),
+      emailBody: makeEmail(districtSlots["data45+"]),
+    });
+  }
+
+  return Promise.all(
+    sendEmailsArr.map((item) =>
+      mg.messages().send({
+        from: mgConfig.from,
+        to: item.emails,
+        subject: "Vaccine slots are available near you.",
+        html: item.emailBody,
+      })
+    )
+  );
 };
 
 export default sendEmails;

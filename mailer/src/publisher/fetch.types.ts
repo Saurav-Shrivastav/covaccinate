@@ -17,8 +17,10 @@ type Data = {
 
 type ResponseData = {
   district_id: string;
-  "emails18-44": Email[];
-  "data18-44": Data[];
+  "emails18-44"?: Email[];
+  "data18-44"?: Data[];
+  "emails45+"?: Email[];
+  "data45+"?: Data[];
 };
 
 export default ResponseData;
