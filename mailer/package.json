@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "tsc && pm2-runtime start ecosystem.config.js"
   },
   "keywords": [],
   "author": "",

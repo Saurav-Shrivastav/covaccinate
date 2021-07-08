@@ -46,7 +46,7 @@ const main = async () => {
 
   setInterval(() => {
     fetch().then((data) => {
-      if (!data) {
+      if (!data || data.length === 0) {
         console.log("No data fetched...");
       } else {
         data.forEach((districtSlots) => {
