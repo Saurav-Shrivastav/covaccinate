@@ -74,7 +74,9 @@ class RegisterView(APIView):
 
 class FindSlotView(APIView):
     def get(self, request):
-        time_threshold = datetime.now(timezone.utc) - timedelta(hours=6)
+        time_threshold = datetime.now(timezone.utc) - timedelta(
+            hours=5, minutes=50
+        )
         district_ids = (
             District.objects.filter(
                 Q(email_send_time__lt=time_threshold)
