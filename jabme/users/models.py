@@ -18,7 +18,7 @@ class District(models.Model):
 
     district = models.CharField(max_length=150)
     district_id = models.CharField(
-        primary_key=True, editable=False, max_length=5
+        primary_key=True, editable=True, max_length=5
     )
     email_send_time = models.DateTimeField(blank=True, null=True)
 
