@@ -1,6 +1,6 @@
 import * as amqp from "amqplib";
 import keys from "../config";
-import fetch from "./fetch";
+import fetch from "./utils/fetch";
 
 const main = async () => {
   console.log("Trying to connect...");

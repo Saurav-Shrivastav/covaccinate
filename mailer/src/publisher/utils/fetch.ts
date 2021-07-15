@@ -1,14 +1,12 @@
-import * as axios from "axios";
+import axios from "../../axios";
+
 import ResponseData from "./fetch.types";
-import { Agent } from "https";
 
 const requestPromise = () => {
   console.log("Trying to fetch...");
 
-  const agent = new Agent({ rejectUnauthorized: false });
-
-  return axios.default
-    .get("https://covaccinate.tech/api/users/slots/", { httpsAgent: agent })
+  return axios
+    .get("https://covaccinate.tech/api/users/slots/")
     .then((res) => res.data as ResponseData[])
     .catch((err: Error) => {
       console.error(err.message);

@@ -1,4 +1,4 @@
-import ResponseData from "../publisher/fetch.types";
+import ResponseData from "../../publisher/utils/fetch.types";
 import ejsTemplate from "./emailTemplate";
 import ejs from "ejs";
 
