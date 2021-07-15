@@ -1,9 +1,9 @@
 import mailgun from "mailgun-js";
-import keys from "../config";
+import keys from "../../config";
 import makeEmail from "./makeEmail";
 
 import { ConsumeMessage } from "amqplib";
-import ResponseData from "../publisher/fetch.types";
+import ResponseData from "../../publisher/utils/fetch.types";
 import { SendEmailItem } from "./mailgun.types";
 
 const who = process.env.WHO?.trim().toUpperCase() || "ARYAMAN";
