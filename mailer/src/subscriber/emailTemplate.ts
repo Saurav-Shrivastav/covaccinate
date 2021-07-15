@@ -15,10 +15,10 @@ const ejsTemplate = `
     >
       <thead>
         <tr>
-          <th 
+          <th
             style="
-              border: 1px solid black; 
-              text-align: center; 
+              border: 1px solid black;
+              text-align: center;
               padding: 5px;
               background-color: lightgray;
             "
@@ -35,10 +35,10 @@ const ejsTemplate = `
           >
             Name
           </th>
-          <th 
+          <th
             style="
-              border: 1px solid black; 
-              text-align: center; 
+              border: 1px solid black;
+              text-align: center;
               padding: 5px;
               background-color: lightgray;
             "
@@ -55,10 +55,10 @@ const ejsTemplate = `
           >
             Slots
           </th>
-          <th 
+          <th
             style="
-              border: 1px solid black; 
-              text-align: center; 
+              border: 1px solid black;
+              text-align: center;
               padding: 5px;
               background-color: lightgray;
             "
@@ -75,10 +75,10 @@ const ejsTemplate = `
           >
             Availability
           </th>
-          <th 
+          <th
             style="
-              border: 1px solid black; 
-              text-align: center; 
+              border: 1px solid black;
+              text-align: center;
               padding: 5px;
               background-color: lightgray;
             "
@@ -95,10 +95,10 @@ const ejsTemplate = `
           >
             Block Name
           </th>
-          <th 
+          <th
             style="
-              border: 1px solid black; 
-              text-align: center; 
+              border: 1px solid black;
+              text-align: center;
               padding: 5px;
               background-color: lightgray;
             "
@@ -125,27 +125,27 @@ const ejsTemplate = `
                 border: 1px solid black;
                 text-align: center;
                 padding: 5px;
-              " 
-              rowspan=<%= hospital.slots.length %> > 
-              <%= index + 1 %> 
+              "
+              rowspan=<%= hospital.slots.length %> >
+              <%= index + 1 %>
             </td>
             <td
               style="
                 border: 1px solid black;
                 text-align: center;
                 padding: 5px;
-              " 
-              rowspan=<%= hospital.slots.length %> > 
-              <%= hospital.name %> 
+              "
+              rowspan=<%= hospital.slots.length %> >
+              <%= hospital.name %>
             </td>
             <td
               style="
                 border: 1px solid black;
                 text-align: center;
                 padding: 5px;
-              " 
-              rowspan=<%= hospital.slots.length %> > 
-              <%= hospital.date %> 
+              "
+              rowspan=<%= hospital.slots.length %> >
+              <%= hospital.date %>
             </td>
             <td
               style="
@@ -154,61 +154,61 @@ const ejsTemplate = `
                 padding: 5px;
               "
             >
-              <%= hospital.slots[0] %> 
+              <%= hospital.slots[0] %>
             </td>
             <td
               style="
                 border: 1px solid black;
                 text-align: center;
                 padding: 5px;
-              " 
-              rowspan=<%= hospital.slots.length %> > 
-              <%= hospital.vaccine %> 
+              "
+              rowspan=<%= hospital.slots.length %> >
+              <%= hospital.vaccine %>
             </td>
             <td
               style="
                 border: 1px solid black;
                 text-align: center;
                 padding: 5px;
-              " 
-              rowspan=<%= hospital.slots.length %> > 
-              <%= hospital.availability %> 
+              "
+              rowspan=<%= hospital.slots.length %> >
+              <%= hospital.availability %>
             </td>
             <td
               style="
                 border: 1px solid black;
                 text-align: center;
                 padding: 5px;
-              " 
-              rowspan=<%= hospital.slots.length %> > 
-              <%= hospital.address %> 
+              "
+              rowspan=<%= hospital.slots.length %> >
+              <%= hospital.address %>
             </td>
             <td
               style="
                 border: 1px solid black;
                 text-align: center;
                 padding: 5px;
-              " 
-              rowspan=<%= hospital.slots.length %> > 
-              <%= hospital.block_name %> 
+              "
+              rowspan=<%= hospital.slots.length %> >
+              <%= hospital.block_name %>
             </td>
             <td
               style="
                 border: 1px solid black;
                 text-align: center;
                 padding: 5px;
-              " 
-              rowspan=<%= hospital.slots.length %> > 
-              <%= hospital.fee_type %> 
+              "
+              rowspan=<%= hospital.slots.length %> >
+              <%= hospital.fee_type %>
             </td>
             <td
               style="
                 border: 1px solid black;
                 text-align: center;
                 padding: 5px;
-              " 
-              rowspan=<%= hospital.slots.length %> > 
-              <%= hospital.min_age_limit %> 
+              "
+              rowspan=<%= hospital.slots.length %> >
+              <%= hospital.min_age_limit %>
             </td>
           </tr>
 
@@ -221,7 +221,7 @@ const ejsTemplate = `
                   padding: 5px;
                 "
               >
-                  <%= slot %> 
+                  <%= slot %>
                 </td>
               </tr>
           <% }) %>
