@@ -1,9 +1,9 @@
 import * as amqp from "amqplib";
 import keys from "../config";
-import sendEmails from "./mailgun";
-import setLastSent from "./setLastSent";
+import sendEmails from "./utils/mailgun";
+import setLastSent from "./utils/setLastSent";
 
-import ResponseData from "../publisher/fetch.types";
+import ResponseData from "../publisher/utils/fetch.types";
 
 const main = async () => {
   console.log("Trying to connect...");

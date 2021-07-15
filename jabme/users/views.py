@@ -21,7 +21,7 @@ from django.utils.decorators import method_decorator
 from fake_useragent import UserAgent
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from users.decorators import login_by_ip
+from users.decorators import validate_header
 from users.models import District
 
 PINCODE_REGEX = "^[1-9][0-9]{5}$"
@@ -74,7 +74,7 @@ class RegisterView(APIView):
         return Response("Registered Successfully")
 
 
-@method_decorator(login_by_ip, name="get")
+@method_decorator(validate_header, name="get")
 class FindSlotView(APIView):
     def get(self, request):
         time_threshold = datetime.now(timezone.utc) - timedelta(
@@ -206,7 +206,7 @@ class FindSlotView(APIView):
         return Response(result)
 
 
-@method_decorator(login_by_ip, name="post")
+@method_decorator(validate_header, name="post")
 class UpdateEmailSentTime(APIView):
     def post(self, request):
         now = Now()
