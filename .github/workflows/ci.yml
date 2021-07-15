@@ -39,6 +39,7 @@ jobs:
             ${{ runner.os }}-pipenv-v2-
 
       - name: Install dependencies
+        working-directory: ./jabme
         env:
           PIPENV_NOSPIN: "true"
           WORKON_HOME: ~/.local/share/virtualenvs
@@ -47,11 +48,13 @@ jobs:
           pipenv install --deploy --dev
 
       - name: Execute the tests
+        working-directory: ./jabme
         run: |
-          pipenv run python jabme/manage.py test
+          pipenv run python manage.py test
         env:
           DJANGO_SETTINGS_MODULE: app.settings.prod
 
       - name: QA Tests
+        working-directory: ./jabme
         run: |
           pipenv run pre-commit run -a
