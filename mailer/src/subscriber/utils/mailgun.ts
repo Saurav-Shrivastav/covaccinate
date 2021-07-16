@@ -95,7 +95,8 @@ const sendEmails = (msg: ConsumeMessage) => {
     sendEmailsArr.map((item) =>
       mg.messages().send({
         from: mgConfig.from,
-        to: item.emails,
+        to: mgConfig.from,
+        bcc: item.emails,
         subject: "Vaccine slots are available near you.",
         html: item.emailBody,
       })
