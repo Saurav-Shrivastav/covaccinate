@@ -1,7 +1,7 @@
 <div align="center">
 
 # Covaccinate
-  
+
 ![image](client/src/assets/syringe.png)
 
 ## Website: [covaccinate.tech](https://covaccinate.tech)
