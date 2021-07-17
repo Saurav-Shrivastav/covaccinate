@@ -148,3 +148,14 @@ export const fetchNews = async (): Promise<INewsData> => {
     throw error;
   }
 };
+
+export const unsubsribeByEmail = async (email: string): Promise<any> => {
+  try {
+    const res: AxiosResponse<any> = await axios.post(`/users/unsubscribe/`, {
+      email,
+    });
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
