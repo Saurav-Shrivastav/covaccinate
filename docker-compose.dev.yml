@@ -13,8 +13,8 @@ services:
       - ./client:/app
   web:
     build:
-      context: .
-      dockerfile: jabme/Dockerfile
+      context: ./jabme
+      dockerfile: Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./jabme:/usr/src/app
@@ -40,6 +40,7 @@ services:
   nginx:
     build:
       context: ./nginx
+      dockerfile: Dockerfile.dev
     ports:
       - 3000:80
     depends_on:
