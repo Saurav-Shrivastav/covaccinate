@@ -228,6 +228,8 @@ const ejsTemplate = `
         <% }) %>
       </tbody>
     </table>
+    <br />
+    <p>Visit <a href="https://covaccinate.tech/unsubscribe" >this link</a> to unsubscribe.</p>
   </body>
 </html>
 `;
